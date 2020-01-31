@@ -1,0 +1,994 @@
+---
+output: html_document
+---
+
+```{r setup code, warning=FALSE, include=FALSE}
+library(raster)
+library(tidyverse)
+library(sf)
+library(scales)
+library(ggspatial)
+library(viridis)
+library(knitr)
+library(isotone)
+
+options(scipen = 999)
+
+## load datasets
+load("local_data/census.RData")
+load("service_areas.RData")
+load("stations.RData")
+load("vehicles.RData")
+load("muds.RData")
+load("commute_chargers.RData")
+
+colorscheme <- "viridis"
+
+## set property name
+property_name <- "Oakland - Lake Park"
+maplabel  <- "Oakland - Lake Park"
+
+## extract city from address
+city <- 
+  hpcp_list_geocode %>%
+  filter(property == property_name) %>%
+  pull(address) %>% 
+  str_extract("(?<=, ).+,.+(?=, \\d{5}$)")
+
+## evse charachteristics 
+power <-
+  hpcp_list_geocode %>% 
+  filter(property == property_name) %>% 
+  pull(charger_kw)
+
+chargers <-
+  hpcp_list_geocode %>% 
+  filter(property == property_name) %>% 
+  pull(num_chargers) %>% 
+  str_replace("3", "three") %>% 
+  str_replace("4", "four") %>% 
+  str_replace("6", "six")
+
+# horizontal bar graph theme
+theme_evgo_hbar <- function() {
+  theme_minimal() %+replace%
+    theme(
+      axis.line.x = element_line(size = 0.05, color = "#a3a3a3"),
+      panel.grid.major.x = element_line(size = 0.05, color = "#ebebeb"),
+      panel.grid.minor.x = element_line(size = 0.05, color = "#ebebeb"),
+      panel.grid.major.y = element_blank(),
+      axis.text.y = element_text(size = 9, color = "#525252", hjust = 1),
+      axis.text.x = element_text(size = 10, color = "#525252"),
+      axis.title = element_text(size = 13, color = "#525252", hjust = -0.008, face = "bold"),
+      legend.position = "bottom",
+      legend.box.spacing = unit(-.4, "cm"),
+      legend.title = element_text(size = 9, color = "#525252", vjust = 0.7),
+      legend.text = element_text(size = 8, color = "#525252", vjust = 0.7),
+      plot.margin = unit(c(0, 0, 0, 0), units = "cm")
+    )
+}
+
+theme_evgo_vbar <- function() {
+  theme_minimal() %+replace%
+    theme(
+      axis.line.x = element_line(size = 0.05, color = "#a3a3a3"),
+      panel.grid.major.y = element_line(size = 0.05, color = "#ebebeb"),
+      panel.grid.minor.y = element_line(size = 0.05, color = "#ebebeb"),
+      panel.grid.major.x = element_blank(),
+      panel.grid.minor.x = element_blank(),
+      axis.text.y = element_text(size = 13, color = "#525252", hjust = 1),
+      axis.text.x = element_text(size = 10, color = "#525252"),
+      axis.title = element_text(size = 13, color = "#525252", hjust = -0.008, face = "bold"),
+      legend.position = "bottom",
+      legend.box.spacing = unit(-.4, "cm"),
+      plot.margin = unit(c(0, 0, 0, 0), units = "cm")
+      
+    )
+}
+
+# map graphic theme
+theme_evgo_map <- function() {
+  theme_minimal() %+replace%
+    theme(
+      axis.line.x = element_blank(),
+      panel.grid.minor = element_blank(),
+      panel.grid.major = element_blank(),
+      axis.text.y = element_blank(),
+      axis.text.x = element_blank(),
+      axis.title = element_blank(),
+      legend.position = "bottom",
+      plot.margin = unit(c(0, 0, 0, 0), units = "cm"),
+      legend.box.margin=margin(-3,-3,-3,-3)
+    )
+}
+
+
+## histogram theme
+theme_evgo_hist <- function() {
+  theme_minimal() %+replace%
+    theme(
+      panel.grid.major.x = element_blank(),
+      panel.grid.minor.x = element_blank(),
+      panel.grid.major.y = element_line(size = .25, color = "#ebebeb"),
+      panel.grid.minor.y = element_line(size = .25, color = "#ebebeb"),
+      axis.text.y = element_text(size = 10, color = "#525252"),
+      axis.text.x = element_text(size = 10, color = "#525252"),
+      axis.title.x = element_text(size = 13, color = "#525252", hjust = 0, face = "bold"),
+      legend.position = "bottom",
+      legend.box.spacing = unit(-.4, "cm"),
+      plot.margin = unit(c(0, 0, 0, 0), units = "cm")
+      
+    )
+}
+```
+# `r property_name` - baseline factsheet
+The *`r property_name`* High Power Charging Plaza is located in `r city`. The station has 
+`r chargers` `r power`kW chargers  
+
+```{r define map aspect ratio, echo=FALSE}
+boundingbox <- 
+local_service_area %>%
+  filter(property == property_name) %>% 
+  arrange(contour) %>% 
+  mutate(travel_time = paste(contour,"min") %>% 
+                       fct_reorder(contour) %>% 
+                       fct_rev()) %>%
+  
+  st_transform(4326) %>% 
+  
+  st_bbox()
+
+width <- (boundingbox$xmax - boundingbox$xmin) %>% unname()
+length <-(boundingbox$ymax - boundingbox$ymin) %>% unname()
+
+if (length > width) {
+  width_add <-  (length - width)/2
+  
+  xlimits <- c(unname(boundingbox$xmin) - (width_add),
+               unname(boundingbox$xmax) + (width_add))
+  ylimits <- c(unname(boundingbox$ymin), unname(boundingbox$ymax))
+  
+  
+  
+} else {
+  length_add <- (width - length)/2
+  
+  ylimits <- c(unname(boundingbox$ymin) - (length_add),
+               unname(boundingbox$ymax) + (length_add))
+  xlimits <- c(unname(boundingbox$xmin), unname(boundingbox$xmax))
+  
+}
+
+```
+
+
+
+```{r service area map, echo=FALSE, fig.height=7.5, fig.width=5.5, dpi=300}
+
+# filter
+local_service_area %>%
+  filter(property == property_name) %>% 
+  arrange(contour) %>% 
+  mutate(travel_time = paste(contour,"min") %>% 
+                       fct_reorder(contour) %>% 
+                       fct_rev()) %>%
+  
+  st_transform(4326) %>%  
+
+# plot map    
+ggplot() +
+  
+  theme_evgo_map() +
+  
+  
+  annotation_map_tile(type = "cartolight", zoom = 14, progress = c("none")) +
+
+  
+  scale_fill_viridis(option = colorscheme,
+                     begin = 0.2,
+                     end = 0.95,
+                     direction = -1,
+                     discrete = TRUE,
+                     name = "travel time") +
+  
+  geom_sf(aes(fill = travel_time),
+          alpha = 0.6,
+          color = "white") +
+  xlab(NULL)+
+  ylab(NULL)+
+  
+  scale_x_continuous(expand=c(0,0)) +
+  scale_y_continuous(expand=c(0,0)) +
+
+  coord_sf(xlim = xlimits, ylim = ylimits) +
+  
+  geom_curve(data = hpcp_list_geocode %>% 
+                    filter(property == property_name) %>% 
+                    mutate(st_lon = lon + 0.015,
+                           st_lat = lat - 0.015),
+             
+             aes(x = st_lon, y = st_lat, xend = lon, yend = lat),
+             color = "#383838",
+             curvature = -0.2,
+             arrow = arrow(length = unit(0.2, "cm"), type = "closed"),
+             size = 0.2,
+             lineend = "round"
+  ) +
+
+ annotate(geom = "text",
+          x = hpcp_list_geocode %>% 
+            filter(property == property_name) %>% 
+            pull(lon) + 0.015,
+          y = hpcp_list_geocode %>% 
+            filter(property == property_name) %>% 
+            pull(lat) - 0.015,
+          label = maplabel,
+          hjust = 0,
+          color = "#383838",
+          size = 3.5
+)
+
+
+
+```
+
+### Neighborhood service area  
+The neighborhood service area represents HCPC accessibility to residents of nearby MuDs.
+The area is defined by travel time. Service areas are broken down into three polygons (isochrones)
+defined by the distance a vehicle can travel in 5, 7, and 10 minutes in freeflowing traffic.  
+
+The relationship between travel time and the area is non-linear (e.g a 2x increase in travel time = >2x
+increase in area) As travel time increases, the number of MuDs encompassed by the service area grows, and 
+relative demographic indicators such as race/ethnicity or income may change. At the same time, the availability 
+of alternative charging options also grows.  
+
+**Fast Charge capable EVs**  
+*registered vehicles*  
+```{r echo=FALSE, fig.height = 2, fig.width = 5.5, dpi = 300}
+library(scales)
+
+max_value <- dc_fast_bev  %>% 
+  filter(property == property_name) %>%
+  pull(bev_num) %>%
+  max()
+  
+dc_fast_bev %>% 
+  filter(property == property_name) %>%
+  arrange(desc(contour)) %>% 
+  mutate(travel_time = fct_reorder(paste(contour, "min"), contour) %>% fct_rev()
+  ) %>% 
+
+ggplot(aes(x = tesla, fill = travel_time)) +
+  
+  theme_evgo_hbar() +
+  
+  scale_fill_viridis(option = colorscheme,
+                     begin = 0.2,
+                     end = 0.95,
+                     direction = -1,
+                     discrete = TRUE,
+                     name = "travel time") +
+  
+  geom_col(aes(y = bev_num), 
+           position = position_dodge(width = .8),
+           width = 0.7) +
+  
+  geom_text(aes(y = bev_num, label = comma(bev_num)),
+           position = position_dodge(width = .8),
+           hjust = -0.2) +
+  
+  scale_y_continuous(name = "", 
+                     expand = expand_scale(mult = c(0, .01)),
+                     limits = c(0, max_value * 1.08),
+                     breaks = seq(0, round(max_value * 1.1, -nchar(max_value) + 1), round(max_value * 1.1, -nchar(max_value) + 1) / 5)) +
+  
+  xlab("") +
+  coord_flip()
+```
+\
+**DC Fast Chargers**   
+*inside or within 1 mile of service area*  
+```{r echo=FALSE, fig.height=2, fig.width=5.5, dpi = 300}
+
+library(scales)
+
+dcfc_complete <- dcfc_summary %>% 
+  complete(property, nesting(contour, charge_network), fill = list(dcfc = 0)) %>% 
+  filter(property == property_name) %>%
+  group_by(charge_network) %>% 
+  mutate(group_test = sum(dcfc)) %>% 
+  ungroup() %>% 
+  filter(group_test != 0) %>% 
+  dplyr::select(-group_test) %>% 
+  arrange(desc(contour)) %>% 
+  mutate(travel_time = fct_reorder(paste(contour, "min"), contour) %>% fct_rev()
+  ) 
+
+max_value <- 
+  dcfc_complete %>% 
+  pull(dcfc) %>% 
+  max()
+
+dcfc_complete %>% 
+ggplot(aes(x = charge_network, fill = travel_time)) +
+  
+  theme_evgo_hbar() +
+  
+  scale_fill_viridis(option = colorscheme,
+                     begin = 0.2,
+                     end = 0.95,
+                     direction = -1,
+                     discrete = TRUE,
+                     name = "travel time") +
+  
+  geom_col(aes(y = dcfc), 
+           position = position_dodge(width = .8),
+           width = 0.75) +
+  
+  geom_text(aes(y = dcfc, label = comma(dcfc)),
+           position = position_dodge(width = 0.8),
+           hjust = - 0.2) +
+  
+  scale_y_continuous(name = "", 
+                     expand = expand_scale(mult = c(0, .01)),
+                     limits = c(0, max_value * 1.08),
+                     breaks = seq(0, round(max_value * 1.1, -nchar(max_value) + 1), round(max_value * 1.1, -nchar(max_value) + 1) / 5)) +
+  xlab("")+
+  coord_flip() +
+  guides(fill = guide_legend(reverse = TRUE))
+
+```
+\
+**Public l2 chargers**   
+*inside and within 1/2 mile of service area boundary*  
+```{r echo=FALSE, fig.height=1, fig.width=5.5, dpi = 300}
+
+library(scales)
+
+l2_graph <- l2_summary %>% 
+  filter(property == property_name) %>%   
+  mutate(travel_time = fct_reorder(paste(contour, "min"), contour) %>% fct_rev())
+
+max_value <- l2_graph %>% 
+  pull(l2_chargers) %>% 
+  max()
+
+ggplot(l2_graph) +
+  
+  theme_evgo_hbar() +
+  
+  theme(
+    legend.position = "none",
+  ) +
+  
+  scale_fill_viridis(option = colorscheme,
+                     begin = 0.2,
+                     end = 0.95,
+                     direction = -1,
+                     discrete = TRUE,
+                     name = "travel time") +
+  
+  geom_col(aes(x = travel_time, y = l2_chargers, fill = travel_time), 
+           position = "identity",
+           width = 0.8) +
+  
+  geom_text(aes(x = travel_time, y = l2_chargers, label = comma(l2_chargers)), 
+           position = "identity",
+           hjust = -0.2) +
+  
+  scale_y_continuous(name = "",
+                     labels = comma,
+                     expand = expand_scale(mult = c(0, 0)),
+                     limits = c(0, max_value * 1.08),
+                     breaks = seq(0, round(max_value * 1.1, -nchar(max_value) + 1), round(max_value * 1.1, -nchar(max_value) + 1) / 5)) +
+  xlab("") +
+
+  
+  coord_flip()
+
+```
+\
+**Number of multi-unit dwelling units**  
+*by units in building*  
+```{r echo=FALSE, fig.height=4, fig.width=5.5, dpi = 300}
+max_value <- units_buildings  %>% 
+  filter(property == property_name) %>%
+  pull(estimate) %>%
+  max()
+  
+units_buildings %>% 
+  filter(property == property_name) %>%
+  arrange(desc(contour)) %>% 
+  mutate(
+    var_name_order = str_extract(var_name, "^\\d+") %>% as.numeric(),
+    var_name = fct_reorder(var_name, var_name_order) %>% fct_rev(),
+    travel_time = fct_reorder(paste(contour, "min"), contour) %>% fct_rev()
+  ) %>% 
+
+ggplot(aes(x = var_name, y = estimate, fill = travel_time)) +
+  
+  theme_evgo_hbar() +
+  
+  scale_fill_viridis(option = colorscheme,
+                     begin = 0.2,
+                     end = 0.95,
+                     direction = -1,
+                     discrete = TRUE,
+                     name = "travel time") +
+  
+  geom_col(position = position_dodge(width = .8),
+           width = 0.7) +
+  
+  geom_text(aes(label = comma(estimate)),
+           position = position_dodge(width = .8),
+           hjust = -0.1,
+           vjust = .4) +
+  
+  scale_y_continuous(name = "",
+                     labels = comma,
+                     expand = expand_scale(mult = c(0, .01)),
+                     limits = c(0, max_value * 1.13),
+                     breaks = seq(0, round(max_value * 1.1, -nchar(max_value) + 1), round(max_value * 1.1, -nchar(max_value) + 1) / 5)) +
+  
+  guides(fill = guide_legend(reverse = TRUE)) +
+  
+  xlab("") +
+  coord_flip()
+
+
+```
+
+\
+**Share of renters and homeowners**  
+```{r echo=FALSE, fig.height=2, fig.width=5.5, dpi=300}
+
+max_value <- renter_share  %>% 
+  filter(property == property_name) %>%
+  pull(percentage) %>%
+  max()
+
+renter_share %>% 
+  filter(property == property_name) %>%
+  arrange(desc(contour)) %>% 
+  mutate(
+         travel_time = fct_reorder(paste(contour, "min"), contour) %>%  fct_rev()
+  ) %>% 
+  
+  #plot
+  ggplot(aes(x = var_name, y = percentage, fill = travel_time)) +
+  
+    
+  theme_evgo_hbar() +
+  
+  scale_fill_viridis(option = colorscheme,
+                     begin = 0.2,
+                     end = 0.95,
+                     direction = -1,
+                     discrete = TRUE,
+                     name = "travel time") +
+  
+    geom_col(position = position_dodge(width = .8),
+           width = 0.7) +
+  
+    geom_text(aes(label = percent(percentage)),
+           position = position_dodge(width = .8),
+           hjust = -0.1,
+           vjust = .4) +
+  
+  scale_y_continuous(name = "",
+                     labels = percent,
+                     expand = expand_scale(mult = c(0, 0)),
+                     limits = c(0, max_value * 1.15),
+                     breaks = seq(0, round(max_value * 1.1, -nchar(max_value) + 1), round(max_value * 1.1, -nchar(max_value) + 1) / 5)) +
+
+  xlab("") +
+  
+  guides(fill = guide_legend(reverse = TRUE)) +
+  
+  coord_flip()
+
+```
+\
+### Income and demographics
+
+**Neighborhood service area population by travel time:**  
+```{r echo=FALSE, fig.height=1, fig.width=5.5, dpi = 300}
+
+library(scales)
+
+max_value <- population  %>% 
+  filter(property == property_name) %>%
+  pull(estimate) %>%
+  max()
+
+population %>% 
+  filter(property == property_name) %>%   
+  mutate(travel_time = fct_reorder(paste(contour, "min"), contour) %>% fct_rev()
+  ) %>% 
+
+ggplot() +
+  
+  theme_evgo_hbar() +
+  
+  theme(
+    legend.position = "none",
+  ) +
+  
+  scale_fill_viridis(option = colorscheme,
+                   begin = 0.2,
+                   end = 0.95,
+                   direction = -1,
+                   discrete = TRUE,
+                   name = "travel time") +
+  
+  geom_col(aes(x = travel_time, y = estimate, fill = travel_time), 
+           position = "identity",
+           width = 0.8) +
+  
+  geom_text(aes(x = travel_time, y = estimate, label = comma(estimate)), 
+           position = "identity",
+           hjust = -0.1) +
+  
+  scale_y_continuous(name = "",
+                     labels = comma,
+                     expand = expand_scale(mult = c(0, 0)),
+                     limits = c(0, max_value * 1.15),
+                     breaks = seq(0, round(max_value * 1.1, -nchar(max_value) + 1), round(max_value * 1.1, -nchar(max_value) + 1) / 5)) +
+  
+  xlab("") +
+  
+  coord_flip()
+
+```
+\
+**Racial/ethnic makeup of service area**  
+```{r echo=FALSE, fig.height=4, fig.width=5.5, dpi=300}
+
+max_value <- race_ethnicity  %>% 
+  filter(property == property_name) %>%
+  pull(percent) %>%
+  max()
+
+race_ethnicity %>% 
+  filter(property == property_name) %>%
+  arrange(desc(contour)) %>% 
+  mutate(
+         travel_time = fct_reorder(paste(contour, "min"), contour) %>% fct_rev()
+  ) %>% 
+  
+  #plot
+  ggplot(aes(x = re_group, y = percent,fill = travel_time)) +
+  
+    geom_col(position = position_dodge(width = .8),
+           width = 0.7) +
+  
+    geom_text(aes(label = percent(percent)),
+           position = position_dodge(width = .8),
+           hjust = -0.1,
+           vjust = .4) +
+  
+  xlab("") +
+  scale_y_continuous(name = "",
+                     labels = percent,
+                     expand = expand_scale(mult = c(0, .01)),
+                     limits = c(0, max_value * 1.15)) +
+  
+  scale_fill_viridis(option = colorscheme,
+                     begin = 0.2,
+                     end = 0.95,
+                     direction = -1,
+                     discrete = TRUE,
+                     name = "travel time") +
+  
+  theme_evgo_hbar() +
+
+  coord_flip() +  
+  guides(fill = guide_legend(reverse = TRUE))
+
+
+```
+\
+**Household income brackets**  
+*by number of households*  
+```{r echo=FALSE, fig.height=3.5, fig.width=5.5, dpi=300}
+
+max_value <- hh_income  %>% 
+  filter(property == property_name,
+         income_group != "total") %>%
+  pull(estimate) %>%
+  max()
+
+hh_income %>% 
+  filter(property == property_name & income_group != "total" ) %>%
+  arrange(desc(contour)) %>% 
+  mutate(var_name_order = str_extract(income_group, "(?<=\\n\\$)\\d+") %>% as.numeric(),
+         var_name = fct_reorder(income_group, var_name_order),
+         travel_time = fct_reorder(paste(contour, "min"), contour) %>% fct_rev()
+  ) %>% 
+  
+  #plot
+  ggplot(aes(x = var_name, y = estimate, fill = travel_time)) +
+  
+  geom_col(position = position_dodge(width = .8),
+           width = 0.7) +
+  
+  geom_text(aes(label = comma(estimate)),
+           position = position_dodge(width = .8),
+           hjust = -0.1,
+           vjust = .4) +
+
+  xlab("") +
+  scale_y_continuous(name = "",
+                     labels = comma,
+                     expand = expand_scale(mult = c(0, 0)),
+                     limits = c(0, max_value * 1.15),
+                     breaks = seq(0, round(max_value * 1.1, -nchar(max_value) + 1), round(max_value * 1.1, -nchar(max_value) + 1) / 5)) + 
+  
+  scale_fill_viridis(option = colorscheme,
+                     begin = 0.2,
+                     end = 0.95,
+                     direction = -1,
+                     discrete = TRUE,
+                     name = "travel time") +
+  
+  theme_evgo_hbar() +
+
+  coord_flip() +  
+  guides(fill = guide_legend(reverse = TRUE))
+
+```
+**Eductational attainment**  
+*by residents over 25*  
+```{r echo=FALSE, fig.height=3.5, fig.width=5.5, dpi=300}
+
+max_value <- education  %>% 
+  filter(property == property_name,
+         education_group != "total") %>%
+  pull(estimate) %>%
+  max()
+
+education %>% 
+  filter(property == property_name & education_group != "total" ) %>%
+  mutate(group_order = case_when(
+                 education_group == "high school\nor less" ~ 1,
+                 education_group == "associates or\nsome college" ~ 2,
+                 education_group == "undergraduate\ndegre" ~ 3,
+                 education_group == "postgrad or\nprofessional\ndegree" ~ 4
+  )) %>% 
+  
+  arrange(desc(contour)) %>% 
+  mutate(travel_time = fct_reorder(paste(contour, "min"), contour) %>% fct_rev(),
+         education_group = fct_reorder(education_group, group_order),
+        
+  ) %>% 
+  
+  
+  #plot
+  ggplot(aes(x = education_group, y = estimate, fill = travel_time)) +
+  
+  geom_col(position = position_dodge(width = .8),
+           width = 0.7) +
+  
+  geom_text(aes(label = comma(estimate)),
+           position = position_dodge(width = .8),
+           hjust = -0.1,
+           vjust = .4) +
+
+  xlab("") +
+  scale_y_continuous(name = "",
+                     labels = comma,
+                     expand = expand_scale(mult = c(0, .01)),
+                     limits = c(0, max_value * 1.14),
+                     breaks = seq(0, round(max_value * 1.1, -nchar(max_value) + 1), round(max_value * 1.1, -nchar(max_value) + 1) / 5)
+                     ) +
+  
+  scale_fill_viridis(option = colorscheme,
+                     begin = 0.2,
+                     end = 0.95,
+                     direction = -1,
+                     discrete = TRUE,
+                     name = "travel time") +
+  
+  theme_evgo_hbar() +
+
+  coord_flip() +  
+  guides(fill = guide_legend(reverse = TRUE))
+
+```
+
+```{r include=FALSE}
+background_map <- 
+  st_as_sf(mud_com_map %>% filter(property == property_name),
+           coords = c("X","Y"),
+           crs = 4326)
+
+
+boundingbox <- 
+background_map %>%  st_bbox()
+
+
+width <- (boundingbox$xmax - boundingbox$xmin) %>% unname()
+length <-(boundingbox$ymax - boundingbox$ymin) %>% unname()
+
+if (length > width) {
+  width_add <-  (length - width)/2
+  
+  xlimits <- c(unname(boundingbox$xmin) - (width_add),
+               unname(boundingbox$xmax) + (width_add))
+  ylimits <- c(unname(boundingbox$ymin), unname(boundingbox$ymax))
+  
+  
+  
+} else {
+  length_add <- (width - length)/2
+  
+  ylimits <- c(unname(boundingbox$ymin) - (length_add),
+               unname(boundingbox$ymax) + (length_add))
+  xlimits <- c(unname(boundingbox$xmin), unname(boundingbox$xmax))
+  
+}
+
+
+```
+
+**Commuteshed commute flows**  
+*darker colors indicate more commutes*  
+
+```{r echo=FALSE, fig.height=7, fig.width = 5.5, dpi = 300}
+
+mud_commuter_number <- 
+  mud_commuters %>% 
+  filter(property.x == property_name) %>% 
+  summarise(mud_commuters = sum(mud_commuters)) %>% 
+  pull(mud_commuters) %>% 
+  round(digits = 0)
+
+#dummy dataset (kludge to make plotting work)
+background_map %>%
+
+ggplot() +
+  
+  theme_evgo_map() +
+  
+  # kludge
+  geom_sf(alpha = 0) +
+  
+  annotation_map_tile(type = "cartolight", zoom = 10, progress = c("none")) +
+  
+  scale_color_viridis(option = colorscheme,
+                      begin = 0.2,
+                      end = 0.3,
+                      direction = -1,
+                      name = "MUD\ncommuters",
+                      guide = FALSE
+                      ) +
+  
+  scale_alpha_continuous(range = c(0.01, 1),
+                         guide = FALSE) +
+  
+  geom_curve(data = mud_com_map %>% 
+             arrange(mud_commuters) %>% 
+             filter(property == property_name),
+             
+             aes(x = X, y = Y,
+                 xend = lon, yend = lat, 
+                 color = mud_commuters, alpha = mud_commuters),
+             curvature = -0.15,
+             size = 0.6,
+             lineend = "round") +
+  
+  geom_curve(data = hpcp_list_geocode %>% 
+                    filter(property == property_name) %>% 
+                    mutate(st_lon = lon + 0.1,
+                           st_lat = lat - 0.1),
+             aes(x = st_lon, y = st_lat, xend = lon, yend = lat),
+             color = "#383838",
+             curvature = -0.2,
+             arrow = arrow(length = unit(0.1, "cm"), type = "closed"),
+             size = 0.8,
+             lineend = "round",
+             ) +
+
+  annotate(geom = "text",
+         x = hpcp_list_geocode %>% 
+           filter(property == property_name) %>% 
+           pull(lon) + 0.1,
+         y = hpcp_list_geocode %>% 
+           filter(property == property_name) %>% 
+           pull(lat) - 0.1,
+         label = maplabel,
+         hjust = 0,
+         color = "#383838",
+         size = 5) +
+         
+  coord_sf(xlim = xlimits, ylim = ylimits) 
+
+
+
+```
+### Commutershed
+In addition to serving nearby MuD residents, the HPCP may also serve MuD residents that commute to nearby workplaces. The commutershed is constructed using the U.S. Cenus' Longitudinal Origin Destination Employment Survey (LODES) data. Approximately 
+**`r paste(comma(mud_commuter_number))`** MuD residents commute to workplaces within a 1/2 mile of the HPCP.
+
+
+**Commuteshed Fast Charger Availability**  
+*Number of MUD commuters by number of fast charging plugs within 1 mile*  
+```{r echo=FALSE, fig.height=4.5, fig.width=5.5, dpi=300, warning=FALSE}
+
+#median_value <- dcfc_stations_commute  %>% 
+#    filter(property == property_name,
+#         !is.na(charge_network)) %>% 
+#  mutate(charge_weight = mud_commuters * chargers) %>% 
+#  group_by(charge_network) %>% 
+#  summarize(median_charger_availability = median(charge_weight))
+
+
+## summary stats
+
+dcfc_distribution <- dcfc_stations_commute %>% 
+      filter(property == property_name,
+         !is.na(charge_network)
+         ) %>% 
+      group_by(property, geoid) %>% 
+      summarise(commuters = mean(commuters), chargers = sum(chargers)) %>% 
+      ungroup() %>% 
+      group_by(property, chargers) %>% 
+      summarise(mud_commute_totals = sum(commuters))
+
+dcfc_distro_notesla <- dcfc_stations_commute %>% 
+         filter(property == property_name,
+         !is.na(charge_network),
+         charge_network != "Tesla"
+         ) %>% 
+      group_by(property, geoid) %>% 
+      summarise(commuters = mean(commuters), chargers = sum(chargers)) %>% 
+      ungroup() %>% 
+      group_by(property, chargers) %>% 
+      summarise(mud_commute_totals = sum(commuters))
+
+
+median_charging <- weighted.median(dcfc_distribution$chargers,
+                                   dcfc_distribution$mud_commute_totals)
+no_fast_charging <- round(dcfc_distribution %>% 
+                          filter(chargers == 0) %>% 
+                          pull(mud_commute_totals), 0)
+
+median_charging_notesla <- weighted.median(dcfc_distro_notesla$chargers,
+                                           dcfc_distro_notesla$mud_commute_totals)
+
+no_fast_charging_notesla <- round(dcfc_distro_notesla %>%
+                                  filter(chargers == 0) %>%
+                                  pull(mud_commute_totals), 0)
+
+
+
+
+max_value <- dcfc_stations_commute  %>% 
+  filter(property == property_name) %>%
+  pull(chargers) %>%
+  max()
+
+dcfc_stations_commute %>% 
+  filter(property == property_name,
+         !is.na(charge_network)) %>%
+  group_by(charge_network) %>% 
+  mutate(resident_fraction = commuters/sum(commuters)) %>% 
+  ungroup() %>% 
+  
+ggplot() +
+  
+  geom_point(aes(x = factor(charge_network, levels = c("Other", "Tesla", "EVgo")), y = chargers), shape = 1) +
+  geom_violin(aes(x = charge_network, y = chargers, weight = resident_fraction, fill = charge_network), draw_quantiles = c(0.25, 0.5, 0.75)) +
+  
+theme_evgo_hbar() +
+  
+scale_fill_viridis(option = colorscheme,
+                   begin = 0.2,
+                   end = 0.95,
+                   direction = -1,
+                   discrete = TRUE) +
+  
+ xlab("") +
+ scale_y_continuous(name = "",
+                   labels = comma,
+                   expand = expand_scale(mult = c(0, .01)),
+                   limits = c(0, max_value * 1.14),
+                   breaks = seq(0, round(max_value * 1.1, -nchar(max_value) + 1),
+                                round(max_value * 1.1,
+                                      -nchar(max_value) + 1) / (round(max_value * 1.1,
+                                                                    -nchar(max_value) + 1)/10))
+                   ) +
+
+coord_flip()
+
+
+```
+\
+
+
+**Commuteshed L2 Charger Availability**  
+*Number of MUD commuters by number of L2 charging plugs within 1/2 mile*  
+```{r echo=FALSE, fig.width = 5.5, fig.dpi=300}
+
+outlier_figure <- l2_join %>% 
+  filter(property.x == property_name,
+         l2_chargers > 100) %>%
+  pull(mud_commuters) %>% 
+  sum() %>% 
+  round(0)
+  
+
+l2_join %>% 
+  filter(property.x == property_name,
+         l2_chargers <= 100) %>%
+  
+  
+ggplot() +
+    geom_histogram(aes(x = l2_chargers, weight = mud_commuters, fill = property.x),
+                 binwidth = 1,
+                 )+
+  
+  scale_fill_viridis(option = colorscheme,
+                   begin = 0.2,
+                   end = 0.2,
+                   direction = -1,
+                   discrete = TRUE,
+                   guide = FALSE) +
+  
+ scale_y_continuous(name = "MuD commuter frequency", label = comma, expand = expand_scale(mult = c(0, .1))) +
+ scale_x_continuous(name = "L2 Chargers", expand = expand_scale(mult = c(0, 0.005)), breaks = seq(0,100,10))+
+
+ theme_evgo_hist()
+  
+  
+
+
+
+l2_join %>% 
+  filter(property.x == property_name) %>%
+  mutate(l2_chargers_trunc = ifelse(l2_chargers > 101, 101, l2_chargers),
+         outliers = ifelse(l2_chargers_trunc == 101, 101, NA)) %>% 
+  group_by(outliers) %>% 
+  mutate(outlier_binquant = sum(mud_commuters)) %>% 
+  ungroup() %>% 
+  mutate(outlier_binquant = min(outlier_binquant)) %>% 
+
+ggplot() + 
+    geom_histogram(aes(x = l2_chargers_trunc, weight = mud_commuters, fill = mud_commuters),
+                 binwidth = 3,
+                 color = "#909fad") +
+  
+    geom_histogram(aes(x = outliers, weight = mud_commuters),
+                 na.rm = TRUE,   
+                 binwidth = 3,
+                 fill = "#b2ced1",
+                 color = "#a7c4c7") +
+  
+    geom_curve(aes(x = 90, y =  (outlier_binquant/2) + (outlier_binquant/4), xend = 99.5, yend = outlier_binquant/2),
+               color = "#383838",
+               curvature = 0.4,
+               arrow = arrow(length = unit(0.1, "cm"), type = "closed"),
+               size = 0.8,
+               lineend = "round") +
+    
+
+ 
+
+geom_text(aes(x = 90,
+              y = (outlier_binquant/2),
+              label = paste0("outliers\n100+ chargers\n(max = ", max(l2_chargers), ")")),
+         hjust = .5,
+         vjust = -1.2,
+         color = "#383838",
+         size = 4) +
+
+scale_fill_viridis(option = colorscheme,
+                   begin = 0.2,
+                   end = 0.95,
+                   direction = -1,
+                   discrete = TRUE) +  
+  
+scale_y_continuous(name = "MuD commuter frequency", label = comma, expand = expand_scale(mult = c(0, .1))) +
+scale_x_continuous(name = "L2 Chargers (binsize = 3) ", expand = expand_scale(mult = c(0, 0.005)), breaks = seq(0,100,5))
+```
+

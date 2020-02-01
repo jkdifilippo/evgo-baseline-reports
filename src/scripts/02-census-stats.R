@@ -1,15 +1,4 @@
-
-library(raster)
-library(tidyverse)
-library(sf)
-library(tidycensus)
-library(scales)
-library(forcats)
-library(magrittr)
-
 options(stringsAsFactors = FALSE)
-
-rm(list=ls())
 
 # functions -----------------------------------------------
 acs_local_area <- function (variablenames,

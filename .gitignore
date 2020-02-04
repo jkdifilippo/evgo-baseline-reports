@@ -2,5 +2,5 @@
 .Rhistory
 .RData
 .Ruserdata
-/data/processed
-/data/vehicle-data
+/data/raw/processed
+/data/raw/vehicle-data

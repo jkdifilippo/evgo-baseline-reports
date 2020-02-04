@@ -1,0 +1,231 @@
+Property,Address,Layout ,Location Description ,type,include
+Whole Foods San Jose (The Alameda),"777 The Alameda, San Jose, California, 95126",4 - 80kw Chargers,Grocery Store Parking Lot - street level,hpcp,1
+CIM - La Brea HPCP,"1302 South La Brea Ave., Los Angeles, California, 90019",3 - 80kw Chargers,Parking lot - street level ,hpcp,1
+City of Sacramento - Southside Park HPCP,"2115 6th Street, Sacramento, California, 95818",6 - 150kw Charger,Curbside Charging ,hpcp,1
+Chevron #207718 - Willow Road,"1399 Willow Rd, Menlo Park, California, 94025",3 - 50kw Chargers,Gas Station ,hpcp,1
+Lucky Hayward (Santa Clara St) #716,"25151 Santa Clara St, Hayward, California, 94544",6 - 80kw Chargers,Grocery Store Parking Lot - street level,hpcp,1
+Chevron #91965 - Santa Monica Blvd,"10867 Santa Monica Blvd., Los Angeles, California, 90025",4 - 80kw Chargers,Gas Station ,hpcp,1
+Burlingame - Chula Vista Lot,"1133 Chula Vista Ave., Burlingame, California, 94010",4 - 80kw Chargers,City Parking Lot - street level,hpcp,1
+Oakland - Lake Park,"519 Lake Park Ave., Oakland, California, 94610",6 - 80kw Chargers,City Parking Lot - street level,hpcp,1
+South San Francisco - Miller Garage,"329 Miller Ave., South San Francisco, California, 94080",3 - 50kw Chargers,Public Parking Garage,hpcp,1
+City of Foster City Police Station - HPCP,"1000 E. Hillsdale Blvd., Foster City, California, 94404",4 - 80kw Chargers,City Parking Lot (Police Station) street level,hpcp,1
+UCLA - Lot 4,"Lot 4 Westwood Plaza, Los Angeles, California, 90095",6 - 80kw Chargers,Subterranean - parking garage on University Campus,hpcp,1
+City of Millbrae - Broadway,"446 Broadway, Millbrae, California, 94030",3 - 50kw Chargers,City Parking Lot (Police Station) street level,hpcp,1
+Rosecrans Plaza,"3156 Sports Arena Blvd, San Diego, California, 92110",6 - 50kw Chargers,Parking Garage for retail center,hpcp,1
+SD CalTrans Dist. 11 HQ,"4050 Taylor St. Stop 250, San Diego, California, 92110",6 - 80kw Chargers,Parking Lot (Street Level),hpcp,1
+Union 76 - Valley Village,"4654 Laurel Canyon Blvd, Valley Village, California, 91607",4 - 50kw Chargers,Gas Station ,hpcp,1
+Veterans Memorial Park,"4117 Overland Ave, Culver City, California, 90230",3 - 50kw Chargers,City Parking Lot - street level,hpcp,1
+Culver City Senior Center,"4095 Overland Ave, Culver City, California, 90230",3 - 50kw Chargers,City Parking Lot - street level,hpcp,1
+Apollo Center,"10307 Lakewood Blvd 1041, Downey, California, 90241",3 - 50kw Chargers,Parking Lot (Street Level) for retail center,hpcp,1
+1000 Van Ness,"1000 Van Ness, San Francisco, California, 94109",6 - 50kw Chargers,Parking Garage for retail center,hpcp,1
+600 California,"600 California, San Francisco, California, 94101",6 - 50kw Chargers,Parking Garage for retail center,hpcp,1
+8000 Sunset Strip,"8000 W Sunset Blvd, Los Angeles, California 90046",6 - 50kw Chargers,Subterranean - parking garage - retail,hpcp,1
+Metro Point,"901 S Coast Dr., Costa Mesa, CA, 92626",3 - 50kw Chargers,Parking Garage for retail center,hpcp,1
+San Francisco Civic Center ,"455 Golden Gate Avenue, San Francisco, CA 94102",4 - 80kw Chargers,City Parking Lot - street level,hpcp,1
+Whole Foods Mill Valley (Blithedale),"731 E Blithedale Ave, Mill Valley, CA 94941",3 - 50kw Chargers,Grocery Store Parking Lot - street level,hpcp,1
+Oakland - Lafayette Square,"610 E 10th St, Oakland, CA 94606",4 - 50kw Chargers,none,hpcp,1
+San Francisco Premium Outlets,"2774 Livermore Outlets Dr, Livermore, CA, 94551",2 - 50kw Chargers,none,nrg_settlment,1
+City of Visalia,"320 E Acequia Ave., Visalia, CA, 93291",2 - 50kw Chargers,none,nrg_settlment,1
+Cupertino Village,"10869 N Wolfe Rd, Cupertino, CA, 95014",2 - 50kw Chargers,none,nrg_settlment,1
+Whole Foods Santa Cruz,"911 Soquel Ave, Santa Cruz, CA, 95062",2 - 50kw Chargers,none,nrg_settlment,1
+Rialto Market Place,"1310 S Riverside Ave, Rialto, CA, 92376",2 - 50kw Chargers,none,nrg_settlment,1
+Santee Trolley,"9846 Mission Gorge Rd, Santee, CA, 92071",2 - 50kw Chargers,none,nrg_settlment,1
+New Leaf Half Moon Bay,"150 San Mateo Rd, Half Moon Bay, CA, 94019",2 - 50kw Chargers,none,nrg_settlment,1
+Whole Foods San Francisco (SOMA),"399 4th St, San Francisco, CA, 94107",2 - 50kw Chargers,none,nrg_settlment,1
+Westlake Shopping Center,"75 Southgate Ave, Daly City, CA, 94015",2 - 50kw Chargers,none,nrg_settlment,1
+Whole Foods San Francisco (Ocean Ave),"1150 Ocean Ave, San Francisco, CA, 94112",2 - 50kw Chargers,none,nrg_settlment,1
+Whole Foods Fremont,"3111 Mowry Ave, Fremont, CA, 94538",2 - 50kw Chargers,none,nrg_settlment,1
+Fashion Valley,"7007 Friars Rd, San Diego, CA, 92108",2 - 50kw Chargers,none,nrg_settlment,1
+WinCo - Moreno Valley,"12882 Day St, Moreno Valley, CA, 92553",2 - 50kw Chargers,none,nrg_settlment,1
+Camarillo Premium Outlets,"990 Camarillo Center Dr, Camarillo, CA, 93010",2 - 50kw Chargers,none,nrg_settlment,1
+Las Americas Premium Outlets,"4211 Camino de la Plz, San Ysidro, CA, 92173",2 - 50kw Chargers,none,nrg_settlment,1
+Vacaville Premium Outlets,"321 Nut Tree Rd, Vacaville, CA, 95687",1 - 50kw Chargers,none,nrg_settlment,1
+Whole Foods San Francisco (Market Street),"2001 Market St, San Francisco, CA, 94114",2 - 50kw Chargers,none,nrg_settlment,1
+Broadway Plaza,"1142 Broadway, Chula Vista, CA, 91911",2 - 50kw Chargers,none,nrg_settlment,1
+Flower Hill Promenade,"2600 Via de la Valle, Del Mar, CA, 92014",2 - 50kw Chargers,none,nrg_settlment,1
+Carlsbad Premium Outlets,"5620 Paseo del Norte, Carlsbad, CA, 92008",2 - 50kw Chargers,none,nrg_settlment,1
+The Americana at Brand,"889 Americana Way, Glendale, CA, 91210",2 - 50kw Chargers,none,nrg_settlment,1
+San Francisco Premium Outlets,"2774 Livermore Outlets Dr, Livermore, CA, 94551",2 - 50kw Chargers,none,nrg_settlment,1
+WAG 1175 Columbus,"1175 Columbus Ave, San Francisco, CA, 94133",2 - 50kw Chargers,none,nrg_settlment,1
+Walgreens - Tarzana,"18568 Ventura Blvd, Tarzana, CA, 91356",2 - 50kw Chargers,none,nrg_settlment,1
+Public Market,"5959 Shellmound St, Emeryville, CA, 94608",2 - 50kw Chargers,none,nrg_settlment,1
+Northgate Mall - San Francisco,"5800 Northgate Dr, San Rafael, CA, 94903",1 - 50kw Chargers,none,nrg_settlment,1
+Energy Innovation Center,"4760 Clairemont Mesa Blvd, San Diego, CA, 92117",2 - 50kw Chargers,none,nrg_settlment,1
+Nob Hill Alameda #632,"2531 Blanding Ave, Alameda, CA, 94501",2 - 50kw Chargers,none,nrg_settlment,1
+Save Mart Chowchilla #103,"1225 E Robertson Blvd, Chowchilla, CA, 93610",2 - 50kw Chargers,none,nrg_settlment,1
+Whole Foods Novato,"790 De Long Ave, Novato, CA, 94945",2 - 50kw Chargers,none,nrg_settlment,1
+Rancho Penasquitos Towne Ctr,"13289 Black Mountain Rd, San Diego, CA, 92129",2 - 50kw Chargers,none,nrg_settlment,1
+Stonewood Center,"306 Stonewood St, Downey, CA, 90241",2 - 50kw Chargers,none,nrg_settlment,1
+Del Norte Plaza,"330 W El Norte Pkwy, Escondido, CA, 92026",2 - 50kw Chargers,none,nrg_settlment,1
+The Village at Corte Madera,"1618 Redwood Hwy, Corte Madera, CA, 94925",2 - 50kw Chargers,none,nrg_settlment,1
+Whole Foods Berkeley- Telegraph,"3000 Telegraph Ave, Berkeley, CA, 94705",1 - 50kw Chargers,none,nrg_settlment,1
+Lucky Capitola #702,"1475 41st Ave, Capitola, CA, 95010",2 - 50kw Chargers,none,nrg_settlment,1
+Larwin Square,"654 E 1st St, Tustin, CA, 92780",2 - 50kw Chargers,none,nrg_settlment,1
+Warner Center,"5700 Canoga Ave, Woodland Hills, CA, 91367",2 - 50kw Chargers,none,nrg_settlment,1
+Outlets at Orange,"20 City Blvd W, Orange, CA, 92868",2 - 50kw Chargers,none,nrg_settlment,1
+Town Center Gateway - Menifee,"30340 Haun Rd, Menifee, CA, 92584",2 - 50kw Chargers,none,nrg_settlment,1
+Pacific View Mall,"3301 E Main St, Ventura, CA, 93003",2 - 50kw Chargers,none,nrg_settlment,1
+Whole Foods Cupertino,"20955 Stevens Creek Blvd, Cupertino, CA, 95014",2 - 50kw Chargers,none,nrg_settlment,1
+Temecula Brixmor - Vail Ranch Center,"31685 Temecula Pkwy, Temecula, CA, 92592",2 - 50kw Chargers,none,nrg_settlment,1
+Desert Hills Premium Outlets,"48750 Seminole Dr, Cabazon, CA, 92230",2 - 50kw Chargers,none,nrg_settlment,1
+Brea Mall,"1065 Brea Mall, Brea, CA, 92821",2 - 50kw Chargers,none,nrg_settlment,1
+The Current (FS),"707 E Ocean Blvd, Long Beach, CA, 90802",2 - 50kw Chargers,none,nrg_settlment,1
+Oaks Mall,"350 W Hillcrest Dr, Thousand Oaks, CA, 91360",2 - 50kw Chargers,none,nrg_settlment,1
+Sywest - Dicks Sporting Goods / Crossroads,"2316 Monument Blvd, Pleasant Hill, CA, 94523",2 - 50kw Chargers,none,nrg_settlment,1
+Country Fair Shopping Center,"11995 Central Ave, Chino, CA, 91710",2 - 50kw Chargers,none,nrg_settlment,1
+Shops at Mission Viejo,"555 the Shops at Mission Viejo, Mission Viejo, CA, 92691",2 - 50kw Chargers,none,nrg_settlment,1
+Westminster Mall,"1025 Westminster Mall, Westminster, CA, 92683",2 - 50kw Chargers,none,nrg_settlment,1
+Great Mall,"447 Great Mall Dr, Milpitas, CA, 95035",2 - 50kw Chargers,none,nrg_settlment,1
+City of Hermosa Beach Parking,"1301 Hermosa Ave, Hermosa Beach, CA, 90254",2 - 50kw Chargers,none,nrg_settlment,1
+Inland Center,"400 Inland Center Dr, San Bernardino, CA, 92408",2 - 50kw Chargers,none,nrg_settlment,1
+Los Cerritos Center,"200 Los Cerritos Mall, Cerritos, CA, 90703",2 - 50kw Chargers,none,nrg_settlment,1
+Whole Foods Los Altos,"4800 El Camino Real, Los Altos, CA, 94022",2 - 50kw Chargers,none,nrg_settlment,1
+Nob Hill Mountain View #634,"1250 Grant Rd, Mountain View, CA, 94040",2 - 50kw Chargers,none,nrg_settlment,1
+Petaluma Village Premium Outlets,"2200 Petaluma Blvd, Petaluma, CA, 94952",2 - 50kw Chargers,none,nrg_settlment,1
+Walmart #5139 Dixon,"235 E Dorset Dr, Dixon, CA, 95620",2 - 50kw Chargers,none,nrg_settlment,1
+Walmart #5884 San Jose Almaden,"5095 Almaden Expy, San Jose, CA, 95118",2 - 50kw Chargers,none,nrg_settlment,1
+Walgreens Huntington Beach,"19501 Beach Blvd, Huntington Beach, CA, 92648",2 - 50kw Chargers,none,nrg_settlment,1
+Corona Hills Plaza,"360 N McKinley St, Corona, CA, 92879",2 - 50kw Chargers,none,nrg_settlment,1
+Dunlap - Huntington Harbor,"16847 Algonquin St, Huntington Beach, CA, 92649",2 - 50kw Chargers,none,nrg_settlment,1
+Promenade on the Peninsula,"550 Deep Valley Dr, Rolling Hills Estates, CA, 90274",2 - 50kw Chargers,none,nrg_settlment,1
+Lincoln Place Apartments,"1050 Frederick St, Venice, CA, 90291",1 - 50kw Chargers,none,nrg_settlment,1
+Whole Foods Santa Rosa (Coddingtown Mall),"733 Coddingtown Ctr, Santa Rosa, CA, 95401",2 - 50kw Chargers,none,nrg_settlment,1
+Linda Mar,"1227 Linda Mar Shopping Ctr, Pacifica, CA, 94044",2 - 50kw Chargers,none,nrg_settlment,1
+Save Mart Madera (Howard Rd) #77,"1504 Howard Rd, Madera, CA, 93637",2 - 50kw Chargers,none,nrg_settlment,1
+"Serfas Service Station, LLC","800 Serfas Club Dr, Corona, CA, 92882",1 - 50kw Chargers,none,nrg_settlment,1
+City of Union City,"3960 Smith St, Union City, CA, 94587",2 - 50kw Chargers,none,nrg_settlment,1
+San Dimas Plaza,"877 W Arrow Hwy, San Dimas, CA, 91773",2 - 50kw Chargers,none,nrg_settlment,1
+Applegate Ranch,"1000 Commerce Ave, Atwater, CA, 95301",2 - 50kw Chargers,none,nrg_settlment,1
+Rose Pavilion - Pleasanton (Fresh & Easy),"3903 Santa Rita Rd, Pleasanton, CA, 94588",2 - 50kw Chargers,none,nrg_settlment,1
+Las Palmas Shopping Center - Paragon,"42370 Bob Hope Dr, Rancho Mirage, CA, 92270",2 - 50kw Chargers,none,nrg_settlment,1
+Whole Foods Redwood City,"1250 Jefferson Ave, Redwood City, CA, 94062",2 - 50kw Chargers,none,nrg_settlment,1
+Puente Hills Town Center,"17342 Colima Rd, Rowland Heights, CA, 91748",1 - 50kw Chargers,none,nrg_settlment,1
+Whole Foods Berkeley-Gilman,"1025 Gilman St, Berkeley, CA, 94710",2 - 50kw Chargers,none,nrg_settlment,1
+Fairfield - Verdant Freedom Station,"3700 Casa Verde St, San Jose, CA, 95134",2 - 50kw Chargers,none,nrg_settlment,1
+Pavilions Place,"16300 Beach Blvd, Westminster, CA, 92683",2 - 50kw Chargers,none,nrg_settlment,1
+8000 Sunset Strip,"8000 W Sunset Blvd, Los Angeles, CA, 90046",2 - 50kw Chargers,none,nrg_settlment,1
+Bristol Plaza - Santa Ana,"3361 S Bristol St, Santa Ana, CA, 92704",1 - 50kw Chargers,none,nrg_settlment,1
+Whole Foods Lafayette,"3502 Mt Diablo Blvd, Lafayette, CA, 94549",2 - 50kw Chargers,none,nrg_settlment,1
+Santa Rosa Plaza,"1071 Santa Rosa Plz, Santa Rosa, CA, 95401",1 - 50kw Chargers,none,nrg_settlment,1
+Whole Foods San Francisco (Franklin),"1765 California St, San Francisco, CA, 94109",2 - 50kw Chargers,none,nrg_settlment,1
+Tarragona Plaza,"1000 N Western Ave, San Pedro, CA, 90732",2 - 50kw Chargers,none,nrg_settlment,1
+Gateway Plaza-Vallejo,"173 Plaza Dr, Vallejo, CA, 94591",1 - 50kw Chargers,none,nrg_settlment,1
+Napa Premium Outlets,"629 Factory Stores Dr, Napa, CA, 94558",1 - 50kw Chargers,none,nrg_settlment,1
+Savi Ranch - Yorba Linda,"23036 Eastpark Drive, Yorba Linda, CA, 92887",2 - 50kw Chargers,none,nrg_settlment,1
+University of California - UC Hastings - Freedom Station,"376 Larkin St, San Francisco, CA, 94102",2 - 50kw Chargers,none,nrg_settlment,1
+F&E Manhattan Beach #1063,"1700C Rosecrans Ave, Manhattan Beach, CA, 90266",2 - 50kw Chargers,none,nrg_settlment,1
+Fenton Marketplace,"2149 Fenton Pkwy, San Diego, CA, 92108",2 - 50kw Chargers,none,nrg_settlment,1
+F&E Signal Hill #1278,"2475 Cherry Ave, Signal Hill, CA, 90755",2 - 50kw Chargers,none,nrg_settlment,1
+F&E Long Beach #1353,"3300 Atlantic Ave, Long Beach, CA, 90807",2 - 50kw Chargers,none,nrg_settlment,1
+Bridgeport Marketplace,"23841 Newhall Ranch Rd, Valencia, CA, 91355",2 - 50kw Chargers,none,nrg_settlment,1
+West Valley Mall,"3200 Naglee Rd, Tracy, CA, 95304",2 - 50kw Chargers,none,nrg_settlment,1
+Walmart #1574 Bakersfield,"6225 Colony St, Bakersfield, CA, 93307",2 - 50kw Chargers,none,nrg_settlment,1
+Lucky Los Altos #723,"2175 Grant Rd, Los Altos, CA, 94024",2 - 50kw Chargers,none,nrg_settlment,1
+Lucky Napa (Trancas St) #731,"1312 Trancas St, Napa, CA, 94558",2 - 50kw Chargers,none,nrg_settlment,1
+Raley's Brentwood #336,"2400 Sand Creek Rd, Brentwood, CA, 94513",2 - 50kw Chargers,none,nrg_settlment,1
+F&E Hayward #1307,"19691 Hesperian Blvd, Hayward, CA, 94541",2 - 50kw Chargers,none,nrg_settlment,1
+F&E Norwalk #1033,"10930 Rosecrans Ave, Norwalk, CA, 90650",2 - 50kw Chargers,none,nrg_settlment,1
+Morongo Casino,"49500 Seminole Dr, Cabazon, CA, 92230",2 - 50kw Chargers,none,nrg_settlment,1
+San Carlos Library,"610 Elm St, San Carlos, CA, 94070",2 - 50kw Chargers,none,nrg_settlment,1
+Ontario Mills,"1 Mills Cir, Ontario, CA, 91764",2 - 50kw Chargers,none,nrg_settlment,1
+Plaza Rio Vista - Cathedral City,"67800 Vista Chino, Cathedral City, CA, 92234",1 - 50kw Chargers,none,nrg_settlment,1
+Gelson's Calabasas,"22277 Mulholland Hwy, Calabasas, CA, 91302",1 - 50kw Chargers,none,nrg_settlment,1
+F&E Calimesa #1238,"1126 Calimesa Blvd, Calimesa, CA, 92320",2 - 50kw Chargers,none,nrg_settlment,1
+Gelsons Sherman Oaks,"4520 Van Nuys Blvd, Sherman Oaks, CA, 91403",1 - 50kw Chargers,none,nrg_settlment,1
+Fashion Fair Mall,"563 E Shaw Ave, Fresno, CA, 93710",2 - 50kw Chargers,none,nrg_settlment,1
+Walmart #2553 Windsor,"6650 Hembree Ln, Windsor, CA, 95492",2 - 50kw Chargers,none,nrg_settlment,1
+F&E Sunnyvale #1319 - Via Retail,"1180 N Fair Oaks Ave, Sunnyvale, CA, 94089",2 - 50kw Chargers,none,nrg_settlment,1
+Mira Mesa Mall,"8110 Mira Mesa Blvd, San Diego, CA, 92126",2 - 50kw Chargers,none,nrg_settlment,1
+Walmart #2952 Murrieta,"41200 Murrieta Hot Springs Rd, Murrieta, CA, 92562",2 - 50kw Chargers,none,nrg_settlment,1
+Walmart #1693 Redlands,"2050 W Redlands Blvd, Redlands, CA, 92373",2 - 50kw Chargers,none,nrg_settlment,1
+Walmart #1914 Highland,"4210 Highland Ave, Highland, CA, 92346",2 - 50kw Chargers,none,nrg_settlment,1
+Walmart # 5685 Simi Valley,"2801 Cochran St, Simi Valley, CA, 93065",2 - 50kw Chargers,none,nrg_settlment,1
+Playa Vista Community Center,"12855 Runway Rd, Playa Vista, CA, 90094",1 - 50kw Chargers,none,nrg_settlment,1
+City of St. Helena,"1304 Oak Ave, Saint Helena, CA, 94574",2 - 50kw Chargers,none,nrg_settlment,1
+Mall of Victor Valley,"14370 Bear Valley Rd, Victorville, CA, 92392",2 - 50kw Chargers,none,nrg_settlment,1
+Lazy Acres - Encinitas,"150 Encinitas Blvd, Encinitas, CA, 92024",1 - 50kw Chargers,none,nrg_settlment,1
+Stoneridge Shopping Center,"1700 Stoneridge Mall Rd, Pleasanton, CA, 94588",2 - 50kw Chargers,none,nrg_settlment,1
+Whole Foods Dublin,"5200 Dublin Blvd, Dublin, CA, 94568",2 - 50kw Chargers,none,nrg_settlment,1
+Whole Foods- Redondo Beach,"405 N Pacific Coast Hwy, Redondo Beach, CA, 90277",2 - 50kw Chargers,none,nrg_settlment,1
+F&E Rosemead #1445,"9026 Valley Blvd, Rosemead, CA, 91770",2 - 50kw Chargers,none,nrg_settlment,1
+Anaheim Plaza,"510 N Euclid St, Anaheim, CA, 92801",2 - 50kw Chargers,none,nrg_settlment,1
+Melrose Village,"1601 S Melrose Dr, Vista, CA, 92081",2 - 50kw Chargers,none,nrg_settlment,1
+Lucky Martinez #725,"1145 Arnold Dr, Martinez, CA, 94553",2 - 50kw Chargers,none,nrg_settlment,1
+Lucky Sebastopol #777,"776 Gravenstein Hwy N, Sebastopol, CA, 95472",2 - 50kw Chargers,none,nrg_settlment,1
+Sassounian Huntington Beach,"21190 Beach Blvd, Huntington Beach, CA, 92648",2 - 50kw Chargers,none,nrg_settlment,1
+City of San Mateo - Freedom Station,"385 1st Ave, San Mateo, CA, 94401",2 - 50kw Chargers,none,nrg_settlment,1
+F&E Ontario #1164,"2275 S Euclid Ave, Ontario, CA, 91762",2 - 50kw Chargers,none,nrg_settlment,1
+Esplanade Shopping Center,"195 W Esplanade Dr, Oxnard, CA, 93036",2 - 50kw Chargers,none,nrg_settlment,1
+Canyon Country Plaza,"19242 Soledad Canyon Rd, Canyon Country, CA, 91351",2 - 50kw Chargers,none,nrg_settlment,1
+Walmart La Habra #3248,"1340 S Beach Blvd, La Habra, CA, 90631",2 - 50kw Chargers,none,nrg_settlment,1
+Walmart #4171 Garden Grove,"11822 Gilbert St, Garden Grove, CA, 92841",2 - 50kw Chargers,none,nrg_settlment,1
+Walmart # 3522 Baldwin Park,"3250 Big Dalton Ave, Baldwin Park, CA, 91706",2 - 50kw Chargers,none,nrg_settlment,1
+Walmart #2401 Duarte,"1600 Mountain Ave, Duarte, CA, 91010",2 - 50kw Chargers,none,nrg_settlment,1
+Walmart #1941 Glendora,"1950 Auto Centre Dr, Glendora, CA, 91740",2 - 50kw Chargers,none,nrg_settlment,1
+Walmart #1992 Upland,"1540 W Foothill Blvd, Upland, CA, 91786",2 - 50kw Chargers,none,nrg_settlment,1
+Clovis Commons,"695 W Herndon Ave, Clovis, CA, 93612",2 - 50kw Chargers,none,nrg_settlment,1
+Walmart #2245 Oceanside,"705 College Blvd, Oceanside, CA, 92057",2 - 50kw Chargers,none,nrg_settlment,1
+Walmart #2479 San Diego,"3412 College Ave, San Diego, CA, 92115",2 - 50kw Chargers,none,nrg_settlment,1
+Walmart #3516 Chula Vista,"1360 Eastlake Pkwy, Chula Vista, CA, 91915",2 - 50kw Chargers,none,nrg_settlment,1
+Oceanwest Deli,"2600 Michelson Dr, Irvine, CA, 92612",2 - 50kw Chargers,none,nrg_settlment,1
+Gateway Plaza - Santa Fe Springs,"10621 Carmenita Rd, Santa Fe Springs, CA, 90670",2 - 50kw Chargers,none,nrg_settlment,1
+Walmart #3796 Ontario,"1333 N Mountain Ave, Ontario, CA, 91762",2 - 50kw Chargers,none,nrg_settlment,1
+Whole Foods Fresno,"650 W Shaw Ave, Fresno, CA, 93704",2 - 50kw Chargers,none,nrg_settlment,1
+Walmart #2251 City of Industry,"17150 Gale Ave, Hacienda Heights, CA, 91745",2 - 50kw Chargers,none,nrg_settlment,1
+Walmart #2842 Corona,"1290 E Ontario Ave, Corona, CA, 92881",2 - 50kw Chargers,none,nrg_settlment,1
+Raley's Rancho Cordova #440,"4050 Sunrise Blvd, Rancho Cordova, CA, 95742",2 - 50kw Chargers,none,nrg_settlment,1
+Walmart #5215 Delano,"530 Woollomes Ave, Delano, CA, 93215",2 - 50kw Chargers,none,nrg_settlment,1
+Nob Hill Watsonville #617,"1912 Main St, Watsonville, CA, 95076",2 - 50kw Chargers,none,nrg_settlment,1
+Del Amo Fashion Center,"3525 W Carson St, Torrance, CA, 90503",2 - 50kw Chargers,none,nrg_settlment,1
+Lucky Fremont #714,"5000 Mowry Ave, Fremont, CA, 94538",4 - 50kw Chargers,none,nrg_settlment,1
+Vine Fuels - Ceres,"1240 E Whitmore Ave., Ceres, CA, 95307",2 - 50kw Chargers,none,nrg_settlment,1
+Gilroy Premium Outlets,"681 Leavesley Rd, Gilroy, CA, 95020",2 - 50kw Chargers,none,nrg_settlment,1
+Ocean View Plaza,"638 Camino de los Mares, San Clemente, CA, 92673",2 - 50kw Chargers,none,nrg_settlment,1
+Swan Court Hotel,"2950 Pea Soup Anderson Blvd, Selma, CA, 93662",2 - 50kw Chargers,none,nrg_settlment,1
+Whole Foods Oakland,"230 Bay Pl, Oakland, CA, 94612",2 - 50kw Chargers,none,nrg_settlment,1
+Whole Foods San Francisco (Potrero Hill),"450 Rhode Island St, San Francisco, CA, 94107",2 - 50kw Chargers,none,nrg_settlment,1
+Lake Elsinore Outlet Mall,"17600 Collier Ave, Lake Elsinore, CA, 92530",2 - 50kw Chargers,none,nrg_settlment,1
+Vine Fuels - Salida,"4530 Kiernan Ave, Salida, CA, 95368",1 - 50kw Chargers,none,nrg_settlment,1
+Walmart #2028 Riverside,"5200 Van Buren Blvd, Riverside, CA, 92503",2 - 50kw Chargers,none,nrg_settlment,1
+Walmart #1853 Hemet,"1231 S Sanderson Ave, Hemet, CA, 92545",2 - 50kw Chargers,none,nrg_settlment,1
+Walmart #1747 Perris,"1800 N Perris Blvd, Perris, CA, 92571",2 - 50kw Chargers,none,nrg_settlment,1
+Walmart #1756 Fontana,"17251 Foothill Blvd, Fontana, CA, 92335",2 - 50kw Chargers,none,nrg_settlment,1
+Lucky Daly City #707,"6843 Mission St, Daly City, CA, 94014",2 - 50kw Chargers,none,nrg_settlment,1
+Ince Garage,"9290 Culver Blvd, Culver City, CA, 90232",2 - 50kw Chargers,none,nrg_settlment,1
+Legacy - Nineteen800 Freedom Station,"19800 Vallco Pkwy, Cupertino, CA, 95014",2 - 50kw Chargers,none,nrg_settlment,1
+City of Clovis,"1033 5th St, Clovis, CA, 93612",2 - 50kw Chargers,none,nrg_settlment,1
+Walmart 5435 San Jose (Story Rd),"777 Story Rd, San Jose, CA, 95122",2 - 50kw Chargers,none,nrg_settlment,1
+Walmart Huntington Beach #2636,"8230 Talbert Ave, Huntington Beach, CA, 92646",2 - 50kw Chargers,none,nrg_settlment,1
+ABB San Jose Headquarters,"3055 Orchard Dr, San Jose, CA, 95134",2 - 50kw Chargers,none,nrg_settlment,1
+IQ Air - La Mirada,"14351 Firestone Blvd, La Mirada, CA, 90638",1 - 50kw Chargers,none,nrg_settlment,1
+Bristol Farms West Hollywood,"9039 Beverly Blvd, Los Angeles, CA, 90048",1 - 50kw Chargers,none,nrg_settlment,1
+Walmart #3464 Chino,"3943 Grand Ave, Chino, CA, 91710",2 - 50kw Chargers,none,nrg_settlment,1
+Walmart #2288 Pomona,"80 Rio Rancho Rd, Pomona, CA, 91766",2 - 50kw Chargers,none,nrg_settlment,1
+Newport Coast Community Center,"6401 San Joaquin Hills Rd, Newport Coast, CA, 92657",1 - 50kw Chargers,none,nrg_settlment,1
+City of Newport Beach,"100 Civic Center Dr, Newport Beach, CA, 92660",2 - 50kw Chargers,none,nrg_settlment,1
+New Seasons Sunnyvale,"760 E El Camino Real, Sunnyvale, CA, 94087",2 - 50kw Chargers,none,nrg_settlment,1
+Lucky Hollister #719,"291 McCray St, Hollister, CA, 95023",2 - 50kw Chargers,none,nrg_settlment,1
+Lucky San Jose #758,"565 W Capitol Expy, San Jose, CA, 95136",2 - 50kw Chargers,none,nrg_settlment,1
+Walmart #1651 American Canyon,"7011 Main St, American Canyon, CA, 94503",2 - 50kw Chargers,none,nrg_settlment,1
+Lucky Sand City #772,"2000 California Ave, Seaside, CA, 93955",2 - 50kw Chargers,none,nrg_settlment,1
+Walmart #2697 Antioch,"4893 Lone Tree Way, Antioch, CA, 94531",2 - 50kw Chargers,none,nrg_settlment,1
+Walmart #5425 San Jacinto,"1861 S San Jacinto Ave, San Jacinto, CA, 92583",2 - 50kw Chargers,none,nrg_settlment,1
+Lazy Acres - HIllcrest,"422 W Washington St, San Diego, CA, 92103",1 - 50kw Chargers,none,nrg_settlment,1
+Walmart #3276 San Bernardino,"4001 Hallmark Pkwy, San Bernardino, CA, 92407",2 - 50kw Chargers,none,nrg_settlment,1
+Walmart #2495 Westminster,"13331 Beach Blvd, Westminster, CA, 92683",2 - 50kw Chargers,none,nrg_settlment,1
+Walmart #5072 Torrance,"19503 Normandie Ave, Torrance, CA, 90501",2 - 50kw Chargers,none,nrg_settlment,1
+Camino Town and Country,"2227 S El Camino Real, Oceanside, CA, 92054",2 - 50kw Chargers,none,nrg_settlment,1
+Whole Foods Walnut Creek (Ygnacio Rd),"2941 Ygnacio Valley Rd, Walnut Creek, CA, 94598",2 - 50kw Chargers,none,nrg_settlment,1
+2Rodeo - CBRE,"9480 Dayton Way, Beverly Hills, CA, 90210",2 - 50kw Chargers,none,nrg_settlment,1
+Santa Fe Trail Plaza,"10601 Valley Blvd, El Monte, CA, 91731",2 - 50kw Chargers,none,nrg_settlment,1
+Petersen Automotive Museum,"6060 Wilshire Blvd, Los Angeles, CA, 90036",2 - 50kw Chargers,none,nrg_settlment,1
+Lazy Acres - Hermosa Beach,"2510 Pacific Coast Highway, Hermosa Beach, CA, 90254",2 - 50kw Chargers,none,nrg_settlment,1
+Town of Colma,"1198 El Camino, Colma, CA, 94014",2 - 50kw Chargers,none,nrg_settlment,1
+Vintage Faire Mall,"3401 Dale Rd, Modesto, CA, 95356",2 - 50kw Chargers,none,nrg_settlment,1
+Lakewood Center,"500 Lakewood Center Mall, Lakewood, CA, 90712",2 - 50kw Chargers,none,nrg_settlment,1
+Promenade at Downey,"8830 Apollo Way, Downey, CA, 90242",2 - 50kw Chargers,none,nrg_settlment,1
+Marsh Manor Shopping Center,"3640 Florence St, Redwood City, CA, 94063",2 - 50kw Chargers,none,nrg_settlment,1
+Hollywest Promenade,"5455 Hollywood Blvd, Los Angeles, CA, 90027",2 - 50kw Chargers,none,nrg_settlment,1
+San Diego Tech Center,"9605 Scranton Rd, San Diego, CA, 92121",2 - 50kw Chargers,none,nrg_settlment,1
+Parking Lot: P703,"3701 Voigt Dr, La Jolla, CA, 92093",4 - 50kw Chargers,none,nrg_settlment,1
+The World's Tallest Thermometer,"72157 Baker Blvd, Baker, CA, 92309",6 - 50kw Chargers,none,nrg_settlment,1

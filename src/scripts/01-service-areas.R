@@ -1,4 +1,4 @@
-
+################################## HEADER ######################################
 # purpose: define and develop baseline service areas
 # project: EVgo Evaluation Project
 #    year: 2019
@@ -9,7 +9,7 @@
 #  author: James Di Filippo
 #   email: jdifilippo@luskin.ucla.edu
 
-################################## header #####################################
+########################## DEPENDENCIES/OPTIONS/KEYs ###########################
 
 ## load dependencies
 source("src/dependencies.R")
@@ -20,41 +20,31 @@ options(stringsAsFactors = FALSE)
 ## set google api key for ggmap (secret)
 register_google(Sys.getenv("g_apikey"))
 
-############################# analysis options ################################
-
-## travel time variables define the set of isochrone polylines for  
-travel_time_min <- 5
-travel_time_central <- 7
-travel_tim_max <- 10
-
-################################ functions ####################################
+################################ FUNCTIONS #####################################
 
 isochrone <- function (lonlat, time) {
-## mapbox api wrapper function
-## passes lat/lon and travel time to mapbox 
-    
+## mapbox api wrapper function. Passes lat/lon and travel time vars to mapbox
+## api and returns simple feature objects (polys) for each time interval
     parameters <- 
-          list(contours_minutes = time,
+        list(contours_minutes = time,
                polygons = "true",
                denoise = 1,
                access_token = Sys.getenv("mapbox_apikey") ## secret key
-      )
-      
+        )
     pull <- GET(url = "https://api.mapbox.com",
                 path = paste0("/isochrone/v1/mapbox/driving/", lonlat),
-                query = parameters) %>% 
-    
-    content("text") %>%
-    geojson_sf() %>% 
-    select(contour, geometry) %>% 
-    mutate(lonlat = lonlat)
+                query = parameters
+            ) %>% 
+        content("text") %>%
+        geojson_sf() %>% 
+        select(contour, geometry) %>% 
+        mutate(lonlat = lonlat)
   
-  return(pull)
+    return(pull)
 }
   
 join_culver <- function (time, df) {
-## one off function that combines two proximate culver city
-## stations into one
+## one off function that combines two proximate culver city stations into one
       
     union <- 
         st_union(df %>% 
@@ -63,14 +53,12 @@ join_culver <- function (time, df) {
                  df %>% 
                  filter(property == "Veterans Memorial Park" &
                         contour == time)
-    ) %>% 
-      
-    select(-matches("\\.1")) %>% 
-    mutate(property = "Culver City stations")
+        ) %>% 
+        select(-matches("\\.1")) %>% 
+        mutate(property = "Culver City stations")
     
     return(union)  
-    
-  }
+}
   
 vector_st_join <- function (join_val, join_var, data_x, data_y) {
     x <- 
@@ -89,19 +77,54 @@ vector_st_join <- function (join_val, join_var, data_x, data_y) {
     return(join)
   }
   
-################################### data #######################################
+############################# ANALYSIS OPTIONS ##################################
+
+## travel time variables define the set of isochrone polylines for  
+travel_time_min <- 5
+travel_time_central <- 7
+travel_time_max <- 10
+
+################################### DATA #######################################
   
-## list of sites provided by EVgo
+# list of sites provided by EVgo -----------------------------------------------
+
 station_list_raw <- 
     read_csv("data/raw/evgo-locations/site-list.csv") %>% 
     rename_all(tolower) %>% 
     rename_all(list(~ str_replace_all(., "\\s-?|/", "_")))
 
-################################## script #####################################
+# get census tract shapefiles from census.gov ----------------------------------
 
-# process site list -----------------------------------------------------------
+ctract_source <- 
+    "https://www2.census.gov/geo/tiger/GENZ2018/shp/cb_2018_06_tract_500k.zip"
 
-## only keep indicated sites and create additional variables
+ctract_path <- 
+    "data/raw/shapefiles/cb_2018_06_tract_500k.shp"
+
+## download file only if not already in directory
+if (file.exists(ctract_path) == FALSE) {
+  
+  dir.create("data/raw/shapefiles")
+    
+  download.file(url = ctract_source,
+                  destfile = "data/cb_2018_06_tract_500k.zip")
+   
+    unzip("data/cb_2018_06_tract_500k.zip",
+          exdir = "data/raw/shapefiles")
+    
+    file.remove("data/cb_2018_06_tract_500k.zip")
+}
+
+## read census tract file
+ca_tracts <-
+  st_read(ctract_path) %>% 
+  st_transform(32610)
+
+################################## SCRIPT ######################################
+
+# process site list ------------------------------------------------------------
+
+## keep only indicated sites and create site characteristic variables
 station_list <- 
     station_list_raw %>% 
     filter(include == 1) %>% 
@@ -115,23 +138,33 @@ station_list <-
            location_description,
            type)
   
-## use google geocode api to map station addresses
+## Geocode station list addresses. If geocoded file already exists, skip
+## geocoding and read in geocoded file, saving on gmap api calls on repeadted
+## runs. *file must be deleted manually if station list changes*
 
-station_list_geocode <- 
-    geocode(location = station_list$address) %>% 
-    bind_cols(station_list, .)
-  
-station_geocode <- 
-    station_list_geocode %>% 
-    mutate(lonlat = paste0(lon,",",lat)) %>% 
-    select(property, lonlat, type)
+geocode_file_path <- "data/processed/station-list-geocode.csv"
 
+if (file.exists(geocode_file_path)) {
+    station_list_geocode <- read_csv(geocode_file_path)
+} else {
+    
+    station_list_geocode <- 
+        geocode(location = station_list$address) %>% 
+        bind_cols(station_list, .)
+    
+    ## creates save directory (will error if already exists)
+    dir.create("data/processed")
+    
+    write_csv(station_list_geocode, 
+              geocode_file_path)
+}
 
-  
-final_station_list <- 
-    station_list_geocode %>% 
+## Veterans Memorial Park and Culver City Senior Center are less than 1/2 mile
+## from each other, making them functionally the same site from a baseline stats
+## perspective. This joins the two by creating a Culver City Stations entry with
+## a center-point that is the geograpic center between the two adjacent station
+## sites
 
-## create culver city stations entry for geograpic center
 culver_city_station <- 
     tibble(property = "Culver City stations",
            address = "Culver City, California",
@@ -149,293 +182,113 @@ culver_city_station <-
                  pull(lat) %>% 
                  mean()
       )
-    
-  
-  
-    
-  
-  # convert geocoded lat lons to simple features
-  station_sf <- 
-    station_list_geocode %>% 
-    st_as_sf(coords = c("lon", "lat"),
-             crs = 4326) %>%
-    st_transform(32610)
-  
-# create local isochrone set --------------------------------------------------------
-##  create isochrone polygon and spatial crosswalk between that isochrone and
-##  census tracts
-  
+
+
+station_list_processed <-
+    bind_rows(station_list_geocode,
+              culver_city_station)
+
+# convert geocoded lat lons to simple features
+  # station_sf <- 
+  #   station_list_geocode %>% 
+  #   st_as_sf(coords = c("lon", "lat"),
+  #            crs = 4326) %>%
+  #   st_transform(32610)
+  # 
+
+# create local service area isochrone set --------------------------------------
+
+## format station lat/lon data so that it can be passed through to mapbox api
+station_lonlat <- station_list_geocode %>%
+    mutate(lonlat = paste0(lon,",",lat)) %>%
+    select(property, lonlat, type)
+
+## define station isochrone polygons using mapbox api call and joun properties.
+## Will produce errors, this is normal
 station_isochrones <- 
-    map_df(station_geocode$lonlat,
-           )
-    
-    do.call(rbind,
-             %>% 
-            map(isochrone, time = paste(travel_time_min, travel_time_central, travel_tim_max, sep = ",") %>% 
-    left_join(station_geocode,.) %>%
-    st_as_sf() %>% 
+    map_df(station_lonlat$lonlat,
+           isochrone,
+           time = paste(travel_time_min,
+                        travel_time_central, 
+                        travel_time_max, 
+                        sep = ",")
+    )
+
+station_isochrones_joined <- 
+    left_join(station_lonlat, station_isochrones) %>%
+    unique() %>% 
+    st_as_sf(crs = 4326) %>% 
     st_buffer(0) %>% 
     st_transform(32610)
+
   
-  # merge culver city sites 
-  
-  culver_stations <- 
-    map(c(5,7,10), join_culver, df = isochrone_home) %>% 
+## merge culver city service area polygons. This creates combined polygons where
+## travel times are set for ability to reach either station
+culver_stations <- 
+    map(c(5,7,10), join_culver, df = station_isochrones_joined) %>%
     do.call(rbind, .)
-    
-  
-  # final isochrone polys
-  isochrone_home_final <- 
-    isochrone_home %>%
-    filter(property != "Culver City Senior Center" & property != "Veterans Memorial Park") %>% 
+
+## drop separate culver city sites and add in merged station
+station_isochrones_final <- 
+    station_isochrones_joined %>%
+    filter(!property %in% c("Culver City Senior Center",
+                            "Veterans Memorial Park")
+    ) %>% 
     rbind(culver_stations)
-  
-  # get census tract shapefiles if not available 
-  if (file.exists("shapefiles/ca_cts/cb_2018_06_tract_500k.shp") == FALSE) {
-    
-    download.file(url = "https://www2.census.gov/geo/tiger/GENZ2018/shp/cb_2018_06_tract_500k.zip",
-                  destfile = "cb_2018_06_tract_500k.zip")
-    
-    unzip("cb_2018_06_tract_500k.zip",
-          exdir = "shapefiles/ca_cts")
-    
-    file.remove("cb_2018_06_tract_500k.zip")
-  }
-  
-  # read in tract file
-  ca_tracts <-
-    st_read("shapefiles/ca_cts/cb_2018_06_tract_500k.shp") %>% 
-    st_transform(32610)
-  
-  # calculate tract area
-  ca_tracts <- 
+
+# calculate fraction of tracts within service area -----------------------------
+
+## Census tract boundaries do not perfectly overlap isochrone boundaries. To
+## approximate demographic characteristics of area within service areas, we use
+## proportional allocation which allocates values in proportion to how much area
+## of a census tract falls inside the service area.
+
+## calculate total tract area
+ca_tract_area <- 
     ca_tracts %>%  
-    mutate(tract_area = st_area(ca_tracts))
-  
-  names(ca_tracts) <- names(ca_tracts) %>% tolower()
-  
-  # create clipped tract shapefile
-  tracts_home_clip <- 
-    st_intersection(ca_tracts, 
-                    isochrone_home_final
+    mutate(tract_area = st_area(ca_tracts)) %>% 
+    rename_all(tolower)
+
+## clip tracts to isochrones
+tracts_home_clip <- 
+    st_intersection(ca_tract_area, 
+                    station_isochrones_final
     ) %>% 
     select(property, type, contour, geoid, tract_area)
-  
-  #calculate area of tract within isochrone
-  local_service_area <- 
+
+# calculate area of tract within isochrone (clipped area). Census tracts where
+# less than 10% of the tract area falls within service area are removed to
+# reduce error risk
+local_service_area <- 
     tracts_home_clip %>% 
-    
-      mutate(clip_area =  st_area(tracts_home_clip ) %>% 
-                          str_replace_all(" \\[m^2\\]", "") %>% 
-                          as.numeric(),
+    mutate(clip_area =  st_area(tracts_home_clip ) %>% 
+                        str_replace_all(" \\[m^2\\]", "") %>% 
+                        as.numeric(),
            
-             tract_area = tract_area %>%
-                          str_replace_all(" \\[m^2\\]", "") %>% 
-                          as.numeric(),
+           tract_area = tract_area %>%
+                        str_replace_all(" \\[m^2\\]", "") %>% 
+                        as.numeric(),
              
-             allocation = round(clip_area/tract_area,
-                                digits = 2)
-      ) %>% 
+           allocation = round(clip_area/tract_area,
+                              digits = 2)
+    ) %>% 
     filter(allocation > 0.1)
   
-  mapview(local_service_area)
+################################### OUTPUTS ###################################
+
+## clear unneccessary objects from memory
+rm(list=ls()[! ls() %in% c("local_service_area",
+                           "station_list_geocode",
+                           "final_station_list")])
+
+## create save directory (will error if directory already exists)
+dir.create("data/processed/images")
+
+## save image file for use in later analyses
+save.image("data/processed/images/service_areas.RData")
   
-  # outputs --------------------------------------------------------------
-  st_write(local_service_area, "service_areas/local_service_area.geojson", delete_dsn = TRUE)
-  st_write(isochrone_home_final, "service_areas/isochrone_polys.geojson", delete_dsn = TRUE)
-
-
-
-
-  
-# create commuteshed ---------------------------------------------------
-#   identifies commute flows between workplaces around station and home
-#   locations using LODES data. Creates a commutershed for commuting
-#   baseline analysis.
-
-
-# create commuteshed buffer 
-buffer_commute <- 
-  station_sf %>%
-  st_buffer(1609.34 * 0.5) ## half a mile
-
-# merge culver city site polygons
-culver_stations_c <- 
-  st_union(buffer_commute[18,],
-           buffer_commute[19,]
-  ) %>%
-  
-  select(-matches("\\.1")) %>% 
-  mutate(property = "Culver City stations")
-
-# final commute polygons
-buffer_commute_final <- 
-  buffer_commute[1:230,] %>% 
-  rbind(culver_stations_c)
-
-# get census block shapefile if not availble
-
-if (file.exists("shapefiles/ca_blk/tl_2019_06_tabblock10.shp") == FALSE) {
-  
-  download.file(url = "https://www2.census.gov/geo/tiger/TIGER2019/TABBLOCK/tl_2019_06_tabblock10.zip",
-                destfile = "tl_2019_06_tabblock10.zip")
-  
-  unzip("tl_2019_06_tabblock10.zip",
-        exdir = "shapefiles/ca_blk")
-  
-  file.remove("tl_2019_06_tabblock10.zip")
-}
-
-# census block files
-ca_blocks <-
-  st_read("shapefiles/ca_blk/tl_2019_06_tabblock10.shp") %>% 
-  st_transform(32610)
-
-names(ca_blocks) <- names(ca_blocks) %>% tolower()
-
-# join buffer to census polys to identify workplace area blocks
-station_commute_blocks <- 
-  st_join(x = buffer_commute_final,
-          y = ca_blocks,
-          join = st_intersects
-  ) %>%
-  as_tibble() %>% 
-  select(property, geoid10)
-
-station_commute_blocks <- 
-  tibble(property = "UCLA - Lot 4", geoid10 = "060372655101002") %>% 
-  bind_rows(station_commute_blocks)
-
-# download LODES data if not available -------------------------------------------
-if (file.exists("datasets/ca_od_main_JT01_2017.csv.gz") == FALSE) {
-  
-  download.file(url = "https://lehd.ces.census.gov/data/lodes/LODES7/ca/od/ca_od_main_JT01_2017.csv.gz",
-                destfile = "datasets/ca_od_main_JT01_2017.csv.gz")
-  }
-
-lodes <- 
-  read_csv("datasets/ca_od_main_JT01_2017.csv.gz") %>% 
-    select(w_geocode, h_geocode, S000)
-
-station_lodes <-
-  left_join(station_commute_blocks,
-            lodes,
-            by = c("geoid10" = "w_geocode")
-  ) %>%
-  as_tibble() %>% 
-
-  # extract tract geoid
-  mutate(h_geoid = h_geocode %>% 
-                   str_extract("^\\d{11}")
-  ) %>% 
-  
-  # collapse on geoid
-  group_by(property, h_geoid) %>% 
-  summarize(commuters = sum(S000))
-
-station_lodes_sf <- 
-  station_lodes %>% 
-  left_join(ca_tracts, by = c("h_geoid" = "geoid")) %>% 
-  st_as_sf() %>% 
-  select(property, h_geoid, commuters)
-
-station_summary <- 
-  station_lodes %>% 
-  group_by(property) %>% 
-  summarise(workers = sum(commuters, na.rm = TRUE))
-
-rm(lodes) # save memory
-
-# commute data from NHTS
-if (file.exists("datasets/trippub.csv") == FALSE) {
-  
-  download.file("https://nhts.ornl.gov/assets/2016/download/Csv.zip",
-                destfile = "datasets/nhts_data.zip")
-  
-  unzip("datasets/nhts_data.zip", files = "trippub.csv", exdir = "datasets")
-  file.remove("datasets/nhts_data.zip")
-}
-
-nhts <- 
-  read_csv("datasets/trippub.csv") %>% 
-  rename_all(tolower) %>% 
-  select(hhstate, hh_cbsa, trippurp, vmt_mile, wttrdfin) %>% 
-  filter(hhstate == "CA" & trippurp == "HBW" & vmt_mile > 0)
-
-ca_metro_codes <- 
-  # from NHTS codebook
-  tibble(hh_cbsa = c(31080, 40140, 40900, 41740, 41860, 41940, "XXXXX"),
-         metro = c("Los Angeles-Long Beach-Anaheim",
-                   "Riverside-San Bernardino-Ontario",
-                   "Sacramento-Roseville-Arden-Arcade",
-                   "San Diego-Carlsbad",
-                   "San Francisco-Oakland-Hayward",
-                   "San Jose-Sunnyvale-Santa Clara",
-                   "Other")
-  )
-
-nhts_metro_90 <- 
-  left_join(ca_metro_codes, nhts) %>% 
-  group_by(metro, hh_cbsa) %>% 
-  summarize(per90 = quantile(vmt_mile, .9)) %>% 
-  ungroup()
-
-# get cbsa shapefile
-if (file.exists("shapefiles/cbsa/cb_2018_us_cbsa_20m.shp") == FALSE) {
-  download.file("https://www2.census.gov/geo/tiger/GENZ2018/shp/cb_2018_us_cbsa_20m.zip",
-                destfile = "shapefiles/cbsa/cb_2018_us_cbsa_20m.zip")
-  
-  unzip("shapefiles/cbsa/cb_2018_us_cbsa_20m.zip", exdir = "shapefiles/cbsa")
-  file.remove("shapefiles/cbsa/cb_2018_us_cbsa_20m.zip")
-}
-
-cbsa <- st_read("shapefiles/cbsa/cb_2018_us_cbsa_20m.shp") %>% 
-  rename_all(tolower) %>% 
-  select(cbsafp, affgeoid, name) %>% 
-  st_transform(32610)
-
-commute_max_sf <- 
-  st_join(station_sf, cbsa, join = st_intersects) %>% 
-  left_join(nhts_metro_90, ., by = c("hh_cbsa" = "cbsafp")) %>% 
-  filter(is.na(property) == FALSE) %>% 
-  st_as_sf()
-
-commute_buffer <- 
-  commute_max_sf %>% 
-  st_buffer(commute_max_sf$per90 * 1609.34)
-
-# merge culver city site polygons
-culver_stations_c <- 
-  st_union(commute_buffer[5,],
-           commute_buffer[6,]
-  ) %>%
-  
-  select(-matches("\\.1")) %>% 
-  mutate(property = "Culver City stations")
-
-# final commute polygons
-commute_buffer_final <- 
-  commute_buffer %>%
-  filter(property != "Culver City Senior Center" &
-         property != "Veterans Memorial Park" ) %>% 
-  rbind(culver_stations_c) %>% 
-  select(property)
-
-# clip commute
-commuter_service_area <- 
-  map(commute_buffer_final$property, 
-      vector_st_join, 
-      join_var = "property",
-      data_x = station_lodes_sf,
-      data_y = commute_buffer_final) %>% 
-  do.call(rbind, .) 
-
-# outputs -----------------------------------------------------------------------
-st_write(commuter_service_area, "service_areas/commuter_service_area.geojson", delete_dsn = TRUE)
-
-# service areas mapping ---------------------------------------------------------
-
-rm(list=ls()[! ls() %in% c("local_service_area","commuter_service_area", "station_sf", "station_list_geocode", "final_station_list")])
-save.image(file = "service_areas.RData")
+    
+################################### CLEANUP ###################################
+rm(list=ls())
          
 

@@ -13,13 +13,14 @@
 ############################## DEPENDENCIES ####################################
 source("src/dependencies.r")
 
-########################### PROJECT STRUCTURE ##################################
+###################### PROJECT DIRECTORY STRUCTURE #############################
 
 ## builds file structure not contained in git repository
 folder_names <- 
-  c("data/processed",
-    "data/raw/shapefiles",
+  c("data/raw/shapefiles",
     "data/raw/vehicle-data",
+    "data/raw/shapefiles",
+    "data/processed/image-files",
     "output",
     "output/datasets",
     "reports")

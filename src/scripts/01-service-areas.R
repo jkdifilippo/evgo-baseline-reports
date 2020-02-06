@@ -77,14 +77,14 @@ vector_st_join <- function (join_val, join_var, data_x, data_y) {
     return(join)
   }
   
-############################# ANALYSIS OPTIONS ##################################
+############################# ANALYSIS OPTIONS #################################
 
 ## travel time variables define the set of isochrone polylines for  
 travel_time_min <- 5
 travel_time_central <- 7
 travel_time_max <- 10
 
-################################### DATA #######################################
+############################### DATA/INPUTS ####################################
   
 # list of sites provided by EVgo -----------------------------------------------
 
@@ -104,9 +104,7 @@ ctract_path <-
 ## download file only if not already in directory
 if (file.exists(ctract_path) == FALSE) {
   
-  dir.create("data/raw/shapefiles")
-    
-  download.file(url = ctract_source,
+    download.file(url = ctract_source,
                   destfile = "data/cb_2018_06_tract_500k.zip")
    
     unzip("data/cb_2018_06_tract_500k.zip",
@@ -281,11 +279,8 @@ rm(list=ls()[! ls() %in% c("local_service_area",
                            "station_list_geocode",
                            "final_station_list")])
 
-## create save directory (will error if directory already exists)
-dir.create("data/processed/images")
-
 ## save image file for use in later analyses
-save.image("data/processed/images/service_areas.RData")
+save.image("data/processed/image-files/service-areas.RData")
   
     
 ################################### CLEANUP ###################################

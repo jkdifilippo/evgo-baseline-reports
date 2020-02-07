@@ -1,41 +1,66 @@
+################################## HEADER ######################################
+# purpose: define and develop baseline service areas
+# project: EVgo Evaluation Project
+#    year: 2019
+#
+#     org: UCLA Luskin Center for Innovation
+# website: innovation.luskin.ucla.edu
+#
+#  author: James Di Filippo
+#   email: jdifilippo@luskin.ucla.edu
+
+########################## DEPENDENCIES/OPTIONS/KEYs ###########################
+
+## load dependencies
+source("src/dependencies.R")
+
+## set options
 options(stringsAsFactors = FALSE)
 
-# functions -----------------------------------------------
+################################# FUNCTIONS #################################### 
 acs_local_area <- function (variablenames,
                             vars = census_vars,
                             service_area = local_service_area) {
+## Passes variable names through to acs api to download acs tables. Then joins
+## that data to census tracts within service areas based on geoid. Last uses
+## allocation fraction to proportionally allocate values to the in-service-area
+## portion of the tract.
   
-  c_data <- 
-    get_acs(geography = "tract",
-            variables = vars %>%
-            filter(var_type %in% variablenames) %>% 
-            pull(variable), 
-            state = "CA") %>% 
-  left_join(vars) %>% 
-  rename_all(tolower) %>% 
-  select(geoid, var_name, estimate)
+    census_table <- 
+        get_acs(geography = "tract",
+                variables = vars %>%
+                filter(var_type %in% variablenames) %>% 
+                pull(variable), 
+                state = "CA") %>% 
+        left_join(vars) %>% 
+        rename_all(tolower) %>% 
+        select(geoid, var_name, estimate)
 
-  sa_data <- 
-    left_join(service_area, c_data) %>% 
-      as_tibble() %>% 
-      mutate(est_alloc = (allocation * estimate) %>% round(digits = 0)) %>% 
-      group_by(property, contour, var_name) %>% 
-      summarise(estimate = sum(est_alloc)) %>% 
-      ungroup()
+    joined_census_table <- 
+        left_join(service_area, census_table) %>% 
+        st_drop_geometry() %>% 
+        select(-geometry)
+    
+    allocated_census_data <-     
+        mutate(est_alloc = (allocation * estimate) %>%
+                           round(digits = 0)
+        ) %>% 
+        group_by(property, contour, var_name) %>% 
+        summarise(estimate = sum(est_alloc)) %>% 
+        ungroup()
   
-  return(sa_data)
+  return(allocated_census_data)
 
 }
 
-# load local areas ----------------------------
-local_service_area <- 
-  st_read("service_areas/local_service_area.geojson")
+##################################### DATA #####################################
+read(data/processed/image-files/local-service-areas)
 
 # vehicles
 
 # Census data
 
-census_api_key(Sys.getenv("census_apikey"))
+
 
 # census varlist---------------------------
 census_vars <- 

@@ -59,6 +59,9 @@ load("data/processed/image-files/service-areas.RData")
 
 #################################### SCRIPT ####################################
 
+## Passes sets of variables to the acs_local_area function and then processes
+## the output for reporting
+
 # census varlist----------------------------------------------------------------
 
 ## load and clean census variable list.
@@ -71,13 +74,22 @@ census_vars <- load_variables(2017, "acs5") %>%
     ) %>% 
     rename(variable = name)
 
+
 # MUD unit summary --------------------------------------------------------
-units_buildings <- census_vars %>% 
-    filter(str_detect(census_vars$variable, "B25024"))
-    acs_local_area("units in structure") %>% 
-    filter(str_detect(var_name, "[3-9]") == TRUE) %T>%
-    write_csv("local_data/units_buildings.csv")
-  
+
+## MUD counts pulled from census table b25024 - Units by number of units in
+## structure. Structures with more than two unit per building are MUDs duplexes
+## are excluded due to their similarities with SFRs.
+
+## call API with B25024 table
+units_buildings_raw <- 
+    census_vars %>% 
+    filter(str_detect(census_vars$variable, "B25024")) %>% 
+    acs_local_area("units in structure")
+
+## discard data for non-mud buildings 
+units_buildings <- units_buildings_raw %>%      
+    filter(str_detect(label, "[3-9]"))
   
 # income summary ----------------------------------------------------------
 hh_income <- 

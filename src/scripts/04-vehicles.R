@@ -28,6 +28,7 @@ if (!file.exists("data/processed/bev-data.csv")) {
 # data/inputs ------------------------------------------------------------------
   
     load("data/processed/image-files/service-areas.RData")
+  
     vehicles_raw <- read_csv("data/raw/vehicle-data/pev-reg-statewide.csv")
     attributes <- read_csv("data/raw/vehicle-data/vehicle-properties.csv")
 
@@ -36,7 +37,7 @@ if (!file.exists("data/processed/bev-data.csv")) {
     ## join vehicle data with attribute file to identify and filter for DCFC
     ## capable bevs
     dcfc_capable_bevs <- 
-        left_join(vehicles_raw, attributes) 
+        left_join(vehicles_raw, attributes) %>% 
         filter(max_dc_charging > 0)
         
     ## identify whether bev is Tesla or non-Tesla BEV and summarize by census
@@ -67,8 +68,8 @@ if (!file.exists("data/processed/bev-data.csv")) {
 
 ############################## OUTPUTS #########################################
 
-write_csv(bevs,"data/processed/bev-data.csv"
-          )
+write_csv(bevs,"data/processed/bev-data.csv")
+
 rm(list=ls()[! ls() %in% c("bevs")])
 save.image("data/processed/image-files/vehicles.RData")
 

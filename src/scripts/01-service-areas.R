@@ -150,9 +150,6 @@ if (file.exists(geocode_file_path)) {
         geocode(location = station_list$address) %>% 
         bind_cols(station_list, .)
     
-    ## creates save directory (will error if already exists)
-    dir.create("data/processed")
-    
     write_csv(station_list_geocode, 
               geocode_file_path)
 }

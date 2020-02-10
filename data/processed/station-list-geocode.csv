@@ -1,0 +1,231 @@
+property,address,num_chargers,charger_kw,location_description,type,lon,lat
+Whole Foods San Jose (The Alameda),"777 The Alameda, San Jose, California, 95126",4,80,Grocery Store Parking Lot - street level,hpcp,-121.9049074,37.3321237
+CIM - La Brea HPCP,"1302 South La Brea Ave., Los Angeles, California, 90019",3,80,Parking lot - street level,hpcp,-118.3440007,34.0493553
+City of Sacramento - Southside Park HPCP,"2115 6th Street, Sacramento, California, 95818",6,150,Curbside Charging,hpcp,-121.5035578,38.5693987
+Chevron #207718 - Willow Road,"1399 Willow Rd, Menlo Park, California, 94025",3,50,Gas Station,hpcp,-122.1518527,37.4792558
+Lucky Hayward (Santa Clara St) #716,"25151 Santa Clara St, Hayward, California, 94544",6,80,Grocery Store Parking Lot - street level,hpcp,-122.0899597,37.6478804
+Chevron #91965 - Santa Monica Blvd,"10867 Santa Monica Blvd., Los Angeles, California, 90025",4,80,Gas Station,hpcp,-118.4381117,34.0498755
+Burlingame - Chula Vista Lot,"1133 Chula Vista Ave., Burlingame, California, 94010",4,80,City Parking Lot - street level,hpcp,-122.363623,37.586414
+Oakland - Lake Park,"519 Lake Park Ave., Oakland, California, 94610",6,80,City Parking Lot - street level,hpcp,-122.2473638,37.8104614
+South San Francisco - Miller Garage,"329 Miller Ave., South San Francisco, California, 94080",3,50,Public Parking Garage,hpcp,-122.4112458,37.6562039
+City of Foster City Police Station - HPCP,"1000 E. Hillsdale Blvd., Foster City, California, 94404",4,80,City Parking Lot (Police Station) street level,hpcp,-122.2707345,37.5586747
+UCLA - Lot 4,"Lot 4 Westwood Plaza, Los Angeles, California, 90095",6,80,Subterranean - parking garage on University Campus,hpcp,-118.4447524,34.0725052
+City of Millbrae - Broadway,"446 Broadway, Millbrae, California, 94030",3,50,City Parking Lot (Police Station) street level,hpcp,-122.3929446,37.6022351
+Rosecrans Plaza,"3156 Sports Arena Blvd, San Diego, California, 92110",6,50,Parking Garage for retail center,hpcp,-117.2067494,32.7530147
+SD CalTrans Dist. 11 HQ,"4050 Taylor St. Stop 250, San Diego, California, 92110",6,80,Parking Lot (Street Level),hpcp,-117.1993557,32.7569475
+Union 76 - Valley Village,"4654 Laurel Canyon Blvd, Valley Village, California, 91607",4,50,Gas Station,hpcp,-118.3963761,34.1555305
+Veterans Memorial Park,"4117 Overland Ave, Culver City, California, 90230",3,50,City Parking Lot - street level,hpcp,-118.4025269,34.012952
+Culver City Senior Center,"4095 Overland Ave, Culver City, California, 90230",3,50,City Parking Lot - street level,hpcp,-118.4031826,34.0138985
+Apollo Center,"10307 Lakewood Blvd 1041, Downey, California, 90241",3,50,Parking Lot (Street Level) for retail center,hpcp,-118.1186228,33.946101
+1000 Van Ness,"1000 Van Ness, San Francisco, California, 94109",6,50,Parking Garage for retail center,hpcp,-122.4205194,37.7851045
+600 California,"600 California, San Francisco, California, 94101",6,50,Parking Garage for retail center,hpcp,-122.4047371,37.7929216
+8000 Sunset Strip,"8000 W Sunset Blvd, Los Angeles, California 90046",6,50,Subterranean - parking garage - retail,hpcp,-118.365233,34.0976043
+Metro Point,"901 S Coast Dr., Costa Mesa, CA, 92626",3,50,Parking Garage for retail center,hpcp,-117.8941019,33.688866
+San Francisco Civic Center,"455 Golden Gate Avenue, San Francisco, CA 94102",4,80,City Parking Lot - street level,hpcp,-122.4178945,37.7812385
+Whole Foods Mill Valley (Blithedale),"731 E Blithedale Ave, Mill Valley, CA 94941",3,50,Grocery Store Parking Lot - street level,hpcp,-122.526048,37.9025872
+Oakland - Lafayette Square,"610 E 10th St, Oakland, CA 94606",4,50,none,hpcp,-122.2554547,37.7929966
+San Francisco Premium Outlets,"2774 Livermore Outlets Dr, Livermore, CA, 94551",2,50,none,nrg_settlment,-121.8449467,37.6995665
+City of Visalia,"320 E Acequia Ave., Visalia, CA, 93291",2,50,none,nrg_settlment,-119.289482,36.329624
+Cupertino Village,"10869 N Wolfe Rd, Cupertino, CA, 95014",2,50,none,nrg_settlment,-122.0154226,37.3357263
+Whole Foods Santa Cruz,"911 Soquel Ave, Santa Cruz, CA, 95062",2,50,none,nrg_settlment,-122.014572,36.978945
+Rialto Market Place,"1310 S Riverside Ave, Rialto, CA, 92376",2,50,none,nrg_settlment,-117.3712088,34.077454
+Santee Trolley,"9846 Mission Gorge Rd, Santee, CA, 92071",2,50,none,nrg_settlment,-116.9824828,32.8423516
+New Leaf Half Moon Bay,"150 San Mateo Rd, Half Moon Bay, CA, 94019",2,50,none,nrg_settlment,-122.4321259,37.4691142
+Whole Foods San Francisco (SOMA),"399 4th St, San Francisco, CA, 94107",2,50,none,nrg_settlment,-122.3997825,37.7812623
+Westlake Shopping Center,"75 Southgate Ave, Daly City, CA, 94015",2,50,none,nrg_settlment,-122.4814411,37.6978655
+Whole Foods San Francisco (Ocean Ave),"1150 Ocean Ave, San Francisco, CA, 94112",2,50,none,nrg_settlment,-122.4524082,37.7229097
+Whole Foods Fremont,"3111 Mowry Ave, Fremont, CA, 94538",2,50,none,nrg_settlment,-121.9852559,37.5549521
+Fashion Valley,"7007 Friars Rd, San Diego, CA, 92108",2,50,none,nrg_settlment,-117.1668349,32.7682239
+WinCo - Moreno Valley,"12882 Day St, Moreno Valley, CA, 92553",2,50,none,nrg_settlment,-117.2781932,33.9327415
+Camarillo Premium Outlets,"990 Camarillo Center Dr, Camarillo, CA, 93010",2,50,none,nrg_settlment,-119.0572673,34.2147347
+Las Americas Premium Outlets,"4211 Camino de la Plz, San Ysidro, CA, 92173",2,50,none,nrg_settlment,-117.0433296,32.5438151
+Vacaville Premium Outlets,"321 Nut Tree Rd, Vacaville, CA, 95687",1,50,none,nrg_settlment,-121.9553519,38.3667297
+Whole Foods San Francisco (Market Street),"2001 Market St, San Francisco, CA, 94114",2,50,none,nrg_settlment,-122.4271267,37.7683532
+Broadway Plaza,"1142 Broadway, Chula Vista, CA, 91911",2,50,none,nrg_settlment,-117.0810171,32.60833
+Flower Hill Promenade,"2600 Via de la Valle, Del Mar, CA, 92014",2,50,none,nrg_settlment,-117.251904,32.9813347
+Carlsbad Premium Outlets,"5620 Paseo del Norte, Carlsbad, CA, 92008",2,50,none,nrg_settlment,-117.3203073,33.126035
+The Americana at Brand,"889 Americana Way, Glendale, CA, 91210",2,50,none,nrg_settlment,-118.2570278,34.1444475
+San Francisco Premium Outlets,"2774 Livermore Outlets Dr, Livermore, CA, 94551",2,50,none,nrg_settlment,-121.8449467,37.6995665
+WAG 1175 Columbus,"1175 Columbus Ave, San Francisco, CA, 94133",2,50,none,nrg_settlment,-122.4170392,37.8047283
+Walgreens - Tarzana,"18568 Ventura Blvd, Tarzana, CA, 91356",2,50,none,nrg_settlment,-118.5379107,34.1692131
+Public Market,"5959 Shellmound St, Emeryville, CA, 94608",2,50,none,nrg_settlment,-122.2938653,37.8414672
+Northgate Mall - San Francisco,"5800 Northgate Dr, San Rafael, CA, 94903",1,50,none,nrg_settlment,-122.544202,38.0042166
+Energy Innovation Center,"4760 Clairemont Mesa Blvd, San Diego, CA, 92117",2,50,none,nrg_settlment,-117.1880737,32.8348257
+Nob Hill Alameda #632,"2531 Blanding Ave, Alameda, CA, 94501",2,50,none,nrg_settlment,-122.2339504,37.7690107
+Save Mart Chowchilla #103,"1225 E Robertson Blvd, Chowchilla, CA, 93610",2,50,none,nrg_settlment,-120.2473514,37.125554
+Whole Foods Novato,"790 De Long Ave, Novato, CA, 94945",2,50,none,nrg_settlment,-122.5656433,38.1059406
+Rancho Penasquitos Towne Ctr,"13289 Black Mountain Rd, San Diego, CA, 92129",2,50,none,nrg_settlment,-117.1248782,32.9584242
+Stonewood Center,"306 Stonewood St, Downey, CA, 90241",2,50,none,nrg_settlment,-118.1188212,33.9359843
+Del Norte Plaza,"330 W El Norte Pkwy, Escondido, CA, 92026",2,50,none,nrg_settlment,-117.0941472,33.1435521
+The Village at Corte Madera,"1618 Redwood Hwy, Corte Madera, CA, 94925",2,50,none,nrg_settlment,-122.5146368,37.9286
+Whole Foods Berkeley- Telegraph,"3000 Telegraph Ave, Berkeley, CA, 94705",1,50,none,nrg_settlment,-122.2604434,37.855655
+Lucky Capitola #702,"1475 41st Ave, Capitola, CA, 95010",2,50,none,nrg_settlment,-121.9662407,36.9717134
+Larwin Square,"654 E 1st St, Tustin, CA, 92780",2,50,none,nrg_settlment,-117.817276,33.7451699
+Warner Center,"5700 Canoga Ave, Woodland Hills, CA, 91367",2,50,none,nrg_settlment,-118.5968518,34.1740355
+Outlets at Orange,"20 City Blvd W, Orange, CA, 92868",2,50,none,nrg_settlment,-117.8929285,33.7826672
+Town Center Gateway - Menifee,"30340 Haun Rd, Menifee, CA, 92584",2,50,none,nrg_settlment,-117.172245,33.6803456
+Pacific View Mall,"3301 E Main St, Ventura, CA, 93003",2,50,none,nrg_settlment,-119.2486042,34.2685041
+Whole Foods Cupertino,"20955 Stevens Creek Blvd, Cupertino, CA, 95014",2,50,none,nrg_settlment,-122.0396177,37.3235879
+Temecula Brixmor - Vail Ranch Center,"31685 Temecula Pkwy, Temecula, CA, 92592",2,50,none,nrg_settlment,-117.1047357,33.4789898
+Desert Hills Premium Outlets,"48750 Seminole Dr, Cabazon, CA, 92230",2,50,none,nrg_settlment,-116.810667,33.9252914
+Brea Mall,"1065 Brea Mall, Brea, CA, 92821",2,50,none,nrg_settlment,-117.8864509,33.9153422
+The Current (FS),"707 E Ocean Blvd, Long Beach, CA, 90802",2,50,none,nrg_settlment,-118.1841092,33.7666633
+Oaks Mall,"350 W Hillcrest Dr, Thousand Oaks, CA, 91360",2,50,none,nrg_settlment,-118.8881216,34.1843078
+Sywest - Dicks Sporting Goods / Crossroads,"2316 Monument Blvd, Pleasant Hill, CA, 94523",2,50,none,nrg_settlment,-122.0585521,37.9418802
+Country Fair Shopping Center,"11995 Central Ave, Chino, CA, 91710",2,50,none,nrg_settlment,-117.6878046,34.0354754
+Shops at Mission Viejo,"555 the Shops at Mission Viejo, Mission Viejo, CA, 92691",2,50,none,nrg_settlment,-117.6695083,33.5573075
+Westminster Mall,"1025 Westminster Mall, Westminster, CA, 92683",2,50,none,nrg_settlment,-118.0116211,33.74754900000001
+Great Mall,"447 Great Mall Dr, Milpitas, CA, 95035",2,50,none,nrg_settlment,-121.897009,37.41355799999999
+City of Hermosa Beach Parking,"1301 Hermosa Ave, Hermosa Beach, CA, 90254",2,50,none,nrg_settlment,-118.4014479,33.86309420000001
+Inland Center,"400 Inland Center Dr, San Bernardino, CA, 92408",2,50,none,nrg_settlment,-117.2984261,34.0849505
+Los Cerritos Center,"200 Los Cerritos Mall, Cerritos, CA, 90703",2,50,none,nrg_settlment,-118.0954269,33.8621562
+Whole Foods Los Altos,"4800 El Camino Real, Los Altos, CA, 94022",2,50,none,nrg_settlment,-122.1106483,37.3989341
+Nob Hill Mountain View #634,"1250 Grant Rd, Mountain View, CA, 94040",2,50,none,nrg_settlment,-122.0764675,37.3784468
+Petaluma Village Premium Outlets,"2200 Petaluma Blvd, Petaluma, CA, 94952",2,50,none,nrg_settlment,-122.6498966,38.25694379999999
+Walmart #5139 Dixon,"235 E Dorset Dr, Dixon, CA, 95620",2,50,none,nrg_settlment,-121.8204963,38.47185959999999
+Walmart #5884 San Jose Almaden,"5095 Almaden Expy, San Jose, CA, 95118",2,50,none,nrg_settlment,-121.8802757,37.2556496
+Walgreens Huntington Beach,"19501 Beach Blvd, Huntington Beach, CA, 92648",2,50,none,nrg_settlment,-117.9891928,33.6788669
+Corona Hills Plaza,"360 N McKinley St, Corona, CA, 92879",2,50,none,nrg_settlment,-117.5208278,33.8865753
+Dunlap - Huntington Harbor,"16847 Algonquin St, Huntington Beach, CA, 92649",2,50,none,nrg_settlment,-118.050208,33.7168528
+Promenade on the Peninsula,"550 Deep Valley Dr, Rolling Hills Estates, CA, 90274",2,50,none,nrg_settlment,-118.3731306,33.772589
+Lincoln Place Apartments,"1050 Frederick St, Venice, CA, 90291",1,50,none,nrg_settlment,-118.4601934,33.9992929
+Whole Foods Santa Rosa (Coddingtown Mall),"733 Coddingtown Ctr, Santa Rosa, CA, 95401",2,50,none,nrg_settlment,-122.7278971,38.4565496
+Linda Mar,"1227 Linda Mar Shopping Ctr, Pacifica, CA, 94044",2,50,none,nrg_settlment,-122.5040693,37.5951749
+Save Mart Madera (Howard Rd) #77,"1504 Howard Rd, Madera, CA, 93637",2,50,none,nrg_settlment,-120.0757839,36.9514112
+"Serfas Service Station, LLC","800 Serfas Club Dr, Corona, CA, 92882",1,50,none,nrg_settlment,-117.6141733,33.8796072
+City of Union City,"3960 Smith St, Union City, CA, 94587",2,50,none,nrg_settlment,-122.080148,37.596278
+San Dimas Plaza,"877 W Arrow Hwy, San Dimas, CA, 91773",2,50,none,nrg_settlment,-117.8245258,34.1080665
+Applegate Ranch,"1000 Commerce Ave, Atwater, CA, 95301",2,50,none,nrg_settlment,-120.6113644,37.3412305
+Rose Pavilion - Pleasanton (Fresh & Easy),"3903 Santa Rita Rd, Pleasanton, CA, 94588",2,50,none,nrg_settlment,-121.8768923,37.69678710000001
+Las Palmas Shopping Center - Paragon,"42370 Bob Hope Dr, Rancho Mirage, CA, 92270",2,50,none,nrg_settlment,-116.4071243,33.7386902
+Whole Foods Redwood City,"1250 Jefferson Ave, Redwood City, CA, 94062",2,50,none,nrg_settlment,-122.2316198,37.4822223
+Puente Hills Town Center,"17342 Colima Rd, Rowland Heights, CA, 91748",1,50,none,nrg_settlment,-117.9284349,33.9906133
+Whole Foods Berkeley-Gilman,"1025 Gilman St, Berkeley, CA, 94710",2,50,none,nrg_settlment,-122.2978181,37.8807242
+Fairfield - Verdant Freedom Station,"3700 Casa Verde St, San Jose, CA, 95134",2,50,none,nrg_settlment,-121.9384145,37.413392
+Pavilions Place,"16300 Beach Blvd, Westminster, CA, 92683",2,50,none,nrg_settlment,-117.9875229,33.7263301
+8000 Sunset Strip,"8000 W Sunset Blvd, Los Angeles, CA, 90046",2,50,none,nrg_settlment,-118.365233,34.0976043
+Bristol Plaza - Santa Ana,"3361 S Bristol St, Santa Ana, CA, 92704",1,50,none,nrg_settlment,-117.8850546,33.7003098
+Whole Foods Lafayette,"3502 Mt Diablo Blvd, Lafayette, CA, 94549",2,50,none,nrg_settlment,-122.117205,37.8933586
+Santa Rosa Plaza,"1071 Santa Rosa Plz, Santa Rosa, CA, 95401",1,50,none,nrg_settlment,-122.7168791,38.4394601
+Whole Foods San Francisco (Franklin),"1765 California St, San Francisco, CA, 94109",2,50,none,nrg_settlment,-122.4234213,37.79012669999999
+Tarragona Plaza,"1000 N Western Ave, San Pedro, CA, 90732",2,50,none,nrg_settlment,-118.3086145,33.7523551
+Gateway Plaza-Vallejo,"173 Plaza Dr, Vallejo, CA, 94591",1,50,none,nrg_settlment,-122.2183663,38.1331662
+Napa Premium Outlets,"629 Factory Stores Dr, Napa, CA, 94558",1,50,none,nrg_settlment,-122.3027269,38.2948329
+Savi Ranch - Yorba Linda,"23036 Eastpark Drive, Yorba Linda, CA, 92887",2,50,none,nrg_settlment,-117.736794,33.87195
+University of California - UC Hastings - Freedom Station,"376 Larkin St, San Francisco, CA, 94102",2,50,none,nrg_settlment,-122.416844,37.7811644
+F&E Manhattan Beach #1063,"1700C Rosecrans Ave, Manhattan Beach, CA, 90266",2,50,none,nrg_settlment,-118.3824973,33.9014956
+Fenton Marketplace,"2149 Fenton Pkwy, San Diego, CA, 92108",2,50,none,nrg_settlment,-117.1264167,32.7802589
+F&E Signal Hill #1278,"2475 Cherry Ave, Signal Hill, CA, 90755",2,50,none,nrg_settlment,-118.1680387,33.8022142
+F&E Long Beach #1353,"3300 Atlantic Ave, Long Beach, CA, 90807",2,50,none,nrg_settlment,-118.1847187,33.8174756
+Bridgeport Marketplace,"23841 Newhall Ranch Rd, Valencia, CA, 91355",2,50,none,nrg_settlment,-118.5517444,34.4305902
+West Valley Mall,"3200 Naglee Rd, Tracy, CA, 95304",2,50,none,nrg_settlment,-121.4589253,37.7605343
+Walmart #1574 Bakersfield,"6225 Colony St, Bakersfield, CA, 93307",2,50,none,nrg_settlment,-119.0294447,35.2987787
+Lucky Los Altos #723,"2175 Grant Rd, Los Altos, CA, 94024",2,50,none,nrg_settlment,-122.0715826,37.3423192
+Lucky Napa (Trancas St) #731,"1312 Trancas St, Napa, CA, 94558",2,50,none,nrg_settlment,-122.3008434,38.3228988
+Raley's Brentwood #336,"2400 Sand Creek Rd, Brentwood, CA, 94513",2,50,none,nrg_settlment,-121.7361665,37.9429131
+F&E Hayward #1307,"19691 Hesperian Blvd, Hayward, CA, 94541",2,50,none,nrg_settlment,-122.1202221,37.6656572
+F&E Norwalk #1033,"10930 Rosecrans Ave, Norwalk, CA, 90650",2,50,none,nrg_settlment,-118.1016148,33.9016112
+Morongo Casino,"49500 Seminole Dr, Cabazon, CA, 92230",2,50,none,nrg_settlment,-116.7993551,33.9215254
+San Carlos Library,"610 Elm St, San Carlos, CA, 94070",2,50,none,nrg_settlment,-122.2624266,37.5036682
+Ontario Mills,"1 Mills Cir, Ontario, CA, 91764",2,50,none,nrg_settlment,-117.5516905,34.073005
+Plaza Rio Vista - Cathedral City,"67800 Vista Chino, Cathedral City, CA, 92234",1,50,none,nrg_settlment,-116.4779085,33.8460347
+Gelson's Calabasas,"22277 Mulholland Hwy, Calabasas, CA, 91302",1,50,none,nrg_settlment,-118.6133349,34.1481372
+F&E Calimesa #1238,"1126 Calimesa Blvd, Calimesa, CA, 92320",2,50,none,nrg_settlment,-117.0594319,33.9969961
+Gelsons Sherman Oaks,"4520 Van Nuys Blvd, Sherman Oaks, CA, 91403",1,50,none,nrg_settlment,-118.4476241,34.1538528
+Fashion Fair Mall,"563 E Shaw Ave, Fresno, CA, 93710",2,50,none,nrg_settlment,-119.7773913,36.8080495
+Walmart #2553 Windsor,"6650 Hembree Ln, Windsor, CA, 95492",2,50,none,nrg_settlment,-122.7899351,38.52865670000001
+F&E Sunnyvale #1319 - Via Retail,"1180 N Fair Oaks Ave, Sunnyvale, CA, 94089",2,50,none,nrg_settlment,-122.009731,37.4032115
+Mira Mesa Mall,"8110 Mira Mesa Blvd, San Diego, CA, 92126",2,50,none,nrg_settlment,-117.1488904,32.9129802
+Walmart #2952 Murrieta,"41200 Murrieta Hot Springs Rd, Murrieta, CA, 92562",2,50,none,nrg_settlment,-117.1925419,33.5531625
+Walmart #1693 Redlands,"2050 W Redlands Blvd, Redlands, CA, 92373",2,50,none,nrg_settlment,-117.2227371,34.06522210000001
+Walmart #1914 Highland,"4210 Highland Ave, Highland, CA, 92346",2,50,none,nrg_settlment,-117.1947672,34.1377525
+Walmart # 5685 Simi Valley,"2801 Cochran St, Simi Valley, CA, 93065",2,50,none,nrg_settlment,-118.7411182,34.2798265
+Playa Vista Community Center,"12855 Runway Rd, Playa Vista, CA, 90094",1,50,none,nrg_settlment,-118.4191855,33.9763267
+City of St. Helena,"1304 Oak Ave, Saint Helena, CA, 94574",2,50,none,nrg_settlment,-122.4696783,38.5039179
+Mall of Victor Valley,"14370 Bear Valley Rd, Victorville, CA, 92392",2,50,none,nrg_settlment,-117.3494325,34.4723098
+Lazy Acres - Encinitas,"150 Encinitas Blvd, Encinitas, CA, 92024",1,50,none,nrg_settlment,-117.2889473,33.0501591
+Stoneridge Shopping Center,"1700 Stoneridge Mall Rd, Pleasanton, CA, 94588",2,50,none,nrg_settlment,-121.9276421,37.69518679999999
+Whole Foods Dublin,"5200 Dublin Blvd, Dublin, CA, 94568",2,50,none,nrg_settlment,-121.8897911,37.7057284
+Whole Foods- Redondo Beach,"405 N Pacific Coast Hwy, Redondo Beach, CA, 90277",2,50,none,nrg_settlment,-118.3895084,33.8473733
+F&E Rosemead #1445,"9026 Valley Blvd, Rosemead, CA, 91770",2,50,none,nrg_settlment,-118.0722221,34.0805218
+Anaheim Plaza,"510 N Euclid St, Anaheim, CA, 92801",2,50,none,nrg_settlment,-117.9400945,33.8406348
+Melrose Village,"1601 S Melrose Dr, Vista, CA, 92081",2,50,none,nrg_settlment,-117.248041,33.1668298
+Lucky Martinez #725,"1145 Arnold Dr, Martinez, CA, 94553",2,50,none,nrg_settlment,-122.102597,37.994716
+Lucky Sebastopol #777,"776 Gravenstein Hwy N, Sebastopol, CA, 95472",2,50,none,nrg_settlment,-122.8400927,38.4072611
+Sassounian Huntington Beach,"21190 Beach Blvd, Huntington Beach, CA, 92648",2,50,none,nrg_settlment,-117.987026,33.655035
+City of San Mateo - Freedom Station,"385 1st Ave, San Mateo, CA, 94401",2,50,none,nrg_settlment,-122.323905,37.5679135
+F&E Ontario #1164,"2275 S Euclid Ave, Ontario, CA, 91762",2,50,none,nrg_settlment,-117.649781,34.032508
+Esplanade Shopping Center,"195 W Esplanade Dr, Oxnard, CA, 93036",2,50,none,nrg_settlment,-119.175289,34.232491
+Canyon Country Plaza,"19242 Soledad Canyon Rd, Canyon Country, CA, 91351",2,50,none,nrg_settlment,-118.4711143,34.4156362
+Walmart La Habra #3248,"1340 S Beach Blvd, La Habra, CA, 90631",2,50,none,nrg_settlment,-117.9660867,33.9149135
+Walmart #4171 Garden Grove,"11822 Gilbert St, Garden Grove, CA, 92841",2,50,none,nrg_settlment,-117.9642564,33.7906515
+Walmart # 3522 Baldwin Park,"3250 Big Dalton Ave, Baldwin Park, CA, 91706",2,50,none,nrg_settlment,-117.9635243,34.0718486
+Walmart #2401 Duarte,"1600 Mountain Ave, Duarte, CA, 91010",2,50,none,nrg_settlment,-117.983865,34.1340035
+Walmart #1941 Glendora,"1950 Auto Centre Dr, Glendora, CA, 91740",2,50,none,nrg_settlment,-117.8258628,34.116607
+Walmart #1992 Upland,"1540 W Foothill Blvd, Upland, CA, 91786",2,50,none,nrg_settlment,-117.6781749,34.1058264
+Clovis Commons,"695 W Herndon Ave, Clovis, CA, 93612",2,50,none,nrg_settlment,-119.7282972,36.840321
+Walmart #2245 Oceanside,"705 College Blvd, Oceanside, CA, 92057",2,50,none,nrg_settlment,-117.2909411,33.2409471
+Walmart #2479 San Diego,"3412 College Ave, San Diego, CA, 92115",2,50,none,nrg_settlment,-117.05348,32.7415988
+Walmart #3516 Chula Vista,"1360 Eastlake Pkwy, Chula Vista, CA, 91915",2,50,none,nrg_settlment,-116.9673648,32.6314313
+Oceanwest Deli,"2600 Michelson Dr, Irvine, CA, 92612",2,50,none,nrg_settlment,-117.8502828,33.6737404
+Gateway Plaza - Santa Fe Springs,"10621 Carmenita Rd, Santa Fe Springs, CA, 90670",2,50,none,nrg_settlment,-118.0481685,33.9378224
+Walmart #3796 Ontario,"1333 N Mountain Ave, Ontario, CA, 91762",2,50,none,nrg_settlment,-117.6724518,34.0826254
+Whole Foods Fresno,"650 W Shaw Ave, Fresno, CA, 93704",2,50,none,nrg_settlment,-119.8054755,36.809224
+Walmart #2251 City of Industry,"17150 Gale Ave, Hacienda Heights, CA, 91745",2,50,none,nrg_settlment,-117.932406,33.9983319
+Walmart #2842 Corona,"1290 E Ontario Ave, Corona, CA, 92881",2,50,none,nrg_settlment,-117.5413309,33.8459825
+Raley's Rancho Cordova #440,"4050 Sunrise Blvd, Rancho Cordova, CA, 95742",2,50,none,nrg_settlment,-121.243603,38.5559029
+Walmart #5215 Delano,"530 Woollomes Ave, Delano, CA, 93215",2,50,none,nrg_settlment,-119.248241,35.7438985
+Nob Hill Watsonville #617,"1912 Main St, Watsonville, CA, 95076",2,50,none,nrg_settlment,-121.7803613,36.9192108
+Del Amo Fashion Center,"3525 W Carson St, Torrance, CA, 90503",2,50,none,nrg_settlment,-118.3495695,33.8305539
+Lucky Fremont #714,"5000 Mowry Ave, Fremont, CA, 94538",4,50,none,nrg_settlment,-121.9976052,37.5351199
+Vine Fuels - Ceres,"1240 E Whitmore Ave., Ceres, CA, 95307",2,50,none,nrg_settlment,-120.976384,37.59449910000001
+Gilroy Premium Outlets,"681 Leavesley Rd, Gilroy, CA, 95020",2,50,none,nrg_settlment,-121.5636695,37.0256162
+Ocean View Plaza,"638 Camino de los Mares, San Clemente, CA, 92673",2,50,none,nrg_settlment,-117.6519251,33.4585538
+Swan Court Hotel,"2950 Pea Soup Anderson Blvd, Selma, CA, 93662",2,50,none,nrg_settlment,-119.6278667,36.5737722
+Whole Foods Oakland,"230 Bay Pl, Oakland, CA, 94612",2,50,none,nrg_settlment,-122.2609981,37.81276870000001
+Whole Foods San Francisco (Potrero Hill),"450 Rhode Island St, San Francisco, CA, 94107",2,50,none,nrg_settlment,-122.4032778,37.7644788
+Lake Elsinore Outlet Mall,"17600 Collier Ave, Lake Elsinore, CA, 92530",2,50,none,nrg_settlment,-117.3520161,33.7008209
+Vine Fuels - Salida,"4530 Kiernan Ave, Salida, CA, 95368",1,50,none,nrg_settlment,-121.0786989,37.71019039999999
+Walmart #2028 Riverside,"5200 Van Buren Blvd, Riverside, CA, 92503",2,50,none,nrg_settlment,-117.4554553,33.9371558
+Walmart #1853 Hemet,"1231 S Sanderson Ave, Hemet, CA, 92545",2,50,none,nrg_settlment,-117.0098913,33.7266112
+Walmart #1747 Perris,"1800 N Perris Blvd, Perris, CA, 92571",2,50,none,nrg_settlment,-117.2295806,33.8060559
+Walmart #1756 Fontana,"17251 Foothill Blvd, Fontana, CA, 92335",2,50,none,nrg_settlment,-117.4282905,34.1055949
+Lucky Daly City #707,"6843 Mission St, Daly City, CA, 94014",2,50,none,nrg_settlment,-122.4626699,37.6976342
+Ince Garage,"9290 Culver Blvd, Culver City, CA, 90232",2,50,none,nrg_settlment,-118.3929931,34.0252255
+Legacy - Nineteen800 Freedom Station,"19800 Vallco Pkwy, Cupertino, CA, 95014",2,50,none,nrg_settlment,-122.012998,37.3253307
+City of Clovis,"1033 5th St, Clovis, CA, 93612",2,50,none,nrg_settlment,-119.6960503,36.824513
+Walmart 5435 San Jose (Story Rd),"777 Story Rd, San Jose, CA, 95122",2,50,none,nrg_settlment,-121.8601749,37.3304293
+Walmart Huntington Beach #2636,"8230 Talbert Ave, Huntington Beach, CA, 92646",2,50,none,nrg_settlment,-117.9854869,33.7001772
+ABB San Jose Headquarters,"3055 Orchard Dr, San Jose, CA, 95134",2,50,none,nrg_settlment,-121.938394,37.394538
+IQ Air - La Mirada,"14351 Firestone Blvd, La Mirada, CA, 90638",1,50,none,nrg_settlment,-118.0249213,33.8838119
+Bristol Farms West Hollywood,"9039 Beverly Blvd, Los Angeles, CA, 90048",1,50,none,nrg_settlment,-118.3892673,34.0773655
+Walmart #3464 Chino,"3943 Grand Ave, Chino, CA, 91710",2,50,none,nrg_settlment,-117.7200268,33.9955043
+Walmart #2288 Pomona,"80 Rio Rancho Rd, Pomona, CA, 91766",2,50,none,nrg_settlment,-117.7576781,34.0292481
+Newport Coast Community Center,"6401 San Joaquin Hills Rd, Newport Coast, CA, 92657",1,50,none,nrg_settlment,-117.8264713,33.6093237
+City of Newport Beach,"100 Civic Center Dr, Newport Beach, CA, 92660",2,50,none,nrg_settlment,-117.8724421,33.6091872
+New Seasons Sunnyvale,"760 E El Camino Real, Sunnyvale, CA, 94087",2,50,none,nrg_settlment,-122.0202567,37.3567633
+Lucky Hollister #719,"291 McCray St, Hollister, CA, 95023",2,50,none,nrg_settlment,-121.3976359,36.8532036
+Lucky San Jose #758,"565 W Capitol Expy, San Jose, CA, 95136",2,50,none,nrg_settlment,-121.854071,37.2761828
+Walmart #1651 American Canyon,"7011 Main St, American Canyon, CA, 94503",2,50,none,nrg_settlment,-122.2532303,38.18315339999999
+Lucky Sand City #772,"2000 California Ave, Seaside, CA, 93955",2,50,none,nrg_settlment,-121.8436291,36.6199091
+Walmart #2697 Antioch,"4893 Lone Tree Way, Antioch, CA, 94531",2,50,none,nrg_settlment,-121.7617532,37.9634518
+Walmart #5425 San Jacinto,"1861 S San Jacinto Ave, San Jacinto, CA, 92583",2,50,none,nrg_settlment,-116.9554387,33.7678988
+Lazy Acres - HIllcrest,"422 W Washington St, San Diego, CA, 92103",1,50,none,nrg_settlment,-117.167742,32.750502
+Walmart #3276 San Bernardino,"4001 Hallmark Pkwy, San Bernardino, CA, 92407",2,50,none,nrg_settlment,-117.3362363,34.1648127
+Walmart #2495 Westminster,"13331 Beach Blvd, Westminster, CA, 92683",2,50,none,nrg_settlment,-117.9935392,33.7677022
+Walmart #5072 Torrance,"19503 Normandie Ave, Torrance, CA, 90501",2,50,none,nrg_settlment,-118.3003484,33.8569059
+Camino Town and Country,"2227 S El Camino Real, Oceanside, CA, 92054",2,50,none,nrg_settlment,-117.3307051,33.186315
+Whole Foods Walnut Creek (Ygnacio Rd),"2941 Ygnacio Valley Rd, Walnut Creek, CA, 94598",2,50,none,nrg_settlment,-122.0168814,37.9256149
+2Rodeo - CBRE,"9480 Dayton Way, Beverly Hills, CA, 90210",2,50,none,nrg_settlment,-118.4010467,34.0678925
+Santa Fe Trail Plaza,"10601 Valley Blvd, El Monte, CA, 91731",2,50,none,nrg_settlment,-118.0404045,34.0769022
+Petersen Automotive Museum,"6060 Wilshire Blvd, Los Angeles, CA, 90036",2,50,none,nrg_settlment,-118.3613556,34.0617501
+Lazy Acres - Hermosa Beach,"2510 Pacific Coast Highway, Hermosa Beach, CA, 90254",2,50,none,nrg_settlment,-118.3945856,33.8720537
+Town of Colma,"1198 El Camino, Colma, CA, 94014",2,50,none,nrg_settlment,-122.4587988,37.676596
+Vintage Faire Mall,"3401 Dale Rd, Modesto, CA, 95356",2,50,none,nrg_settlment,-121.0541136,37.6888109
+Lakewood Center,"500 Lakewood Center Mall, Lakewood, CA, 90712",2,50,none,nrg_settlment,-118.1400994,33.8507608
+Promenade at Downey,"8830 Apollo Way, Downey, CA, 90242",2,50,none,nrg_settlment,-118.1321091,33.9213862
+Marsh Manor Shopping Center,"3640 Florence St, Redwood City, CA, 94063",2,50,none,nrg_settlment,-122.1884527,37.4782334
+Hollywest Promenade,"5455 Hollywood Blvd, Los Angeles, CA, 90027",2,50,none,nrg_settlment,-118.3087331,34.1018672
+San Diego Tech Center,"9605 Scranton Rd, San Diego, CA, 92121",2,50,none,nrg_settlment,-117.202339,32.8957688
+Parking Lot: P703,"3701 Voigt Dr, La Jolla, CA, 92093",4,50,none,nrg_settlment,-117.2204278,32.8809519
+The World's Tallest Thermometer,"72157 Baker Blvd, Baker, CA, 92309",6,50,none,nrg_settlment,-116.0727185,35.2664041

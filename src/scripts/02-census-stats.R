@@ -14,13 +14,15 @@
 ## load dependencies
 source("src/dependencies.R")
 
+## census api key
+census_api_key(Sys.getenv("census_apikey"))
+
 ## set options
 options(stringsAsFactors = FALSE)
 
 ################################# FUNCTIONS #################################### 
-acs_local_area <- function (variablenames,
-                            vars = census_vars,
-                            service_area = local_service_area) {
+
+acs_local_area <- function (varlist, stations = local_service_area) {
 ## Passes variable names through to acs api to download acs tables. Then joins
 ## that data to census tracts within service areas based on geoid. Last uses
 ## allocation fraction to proportionally allocate values to the in-service-area
@@ -28,24 +30,22 @@ acs_local_area <- function (variablenames,
   
     census_table <- 
         get_acs(geography = "tract",
-                variables = vars %>%
-                filter(var_type %in% variablenames) %>% 
-                pull(variable), 
-                state = "CA") %>% 
-        left_join(vars) %>% 
+                variables = pull(varlist, variable), 
+                state = "CA") %>%
+        ## rejoin variable labels
+        left_join(varlist) %>% 
         rename_all(tolower) %>% 
-        select(geoid, var_name, estimate)
+        select(geoid, label, estimate)
 
     joined_census_table <- 
-        left_join(service_area, census_table) %>% 
+        left_join(stations, census_table) %>% 
         st_drop_geometry() %>% 
-        select(-geometry)
-    
-    allocated_census_data <-     
+
+    allocated_census_data <- joined_census_table %>%      
         mutate(est_alloc = (allocation * estimate) %>%
                            round(digits = 0)
         ) %>% 
-        group_by(property, contour, var_name) %>% 
+        group_by(property, contour, label) %>% 
         summarise(estimate = sum(est_alloc)) %>% 
         ungroup()
   
@@ -54,29 +54,27 @@ acs_local_area <- function (variablenames,
 }
 
 ##################################### DATA #####################################
-read(data/processed/image-files/local-service-areas)
 
-# vehicles
+load("data/processed/image-files/service-areas.RData")
 
-# Census data
+#################################### SCRIPT ####################################
 
+# census varlist----------------------------------------------------------------
 
-
-# census varlist---------------------------
-census_vars <- 
-read_csv("census_pull.csv") %>% 
-  mutate(var_type = tolower(var_type),
-         var_name = var_name %>% 
-           str_remove("(Estimate\\!\\!Total\\!\\!)(?=.)") %>% 
-           str_remove("^(Estimate\\!\\!)") %>% 
-           str_replace_all("\\!?\\!", " ") %>% 
-           str_replace_all("(?<=[0-9])\\s(?=[0-9])", ",") %>% 
-           str_replace("(or more)", "+")
-         )
+## load and clean census variable list.
+census_vars <- load_variables(2017, "acs5") %>% 
+    mutate(label = label %>%
+                   str_remove("Estimate\\!\\!(Total\\!\\!)?") %>% 
+                   str_replace_all("\\!?\\!", " ") %>% 
+                   str_replace_all("(?<=\\d)\\s(?=\\d)", ",") %>% 
+                   str_replace("(or more)", "+")
+    ) %>% 
+    rename(variable = name)
 
 # MUD unit summary --------------------------------------------------------
-units_buildings <- 
-  acs_local_area("units in structure") %>% 
+units_buildings <- census_vars %>% 
+    filter(str_detect(census_vars$variable, "B25024"))
+    acs_local_area("units in structure") %>% 
     filter(str_detect(var_name, "[3-9]") == TRUE) %T>%
     write_csv("local_data/units_buildings.csv")
   

@@ -39,7 +39,7 @@ acs_local_area <- function (varlist, stations = local_service_area) {
 
     joined_census_table <- 
         left_join(stations, census_table) %>% 
-        st_drop_geometry() %>% 
+        st_drop_geometry()
 
     allocated_census_data <- joined_census_table %>%      
         mutate(est_alloc = (allocation * estimate) %>%
@@ -75,7 +75,7 @@ census_vars <- load_variables(2017, "acs5") %>%
     rename(variable = name)
 
 
-# MUD unit summary --------------------------------------------------------
+# MUD unit summary -------------------------------------------------------------
 
 ## MUD counts pulled from census table b25024 - Units by number of units in
 ## structure. Structures with more than two unit per building are MUDs duplexes
@@ -85,36 +85,48 @@ census_vars <- load_variables(2017, "acs5") %>%
 units_buildings_raw <- 
     census_vars %>% 
     filter(str_detect(census_vars$variable, "B25024")) %>% 
-    acs_local_area("units in structure")
+    acs_local_area()
 
 ## discard data for non-mud buildings 
 units_buildings <- units_buildings_raw %>%      
     filter(str_detect(label, "[3-9]"))
   
-# income summary ----------------------------------------------------------
-hh_income <- 
-  acs_local_area("household income") %>%
-  mutate(upperbin = var_name %>%
-                    str_remove_all("( \\+)|\\$|,") %>%
-                    str_extract("\\d{5,6}$") %>% 
-                    as.numeric(),
+# income summary ---------------------------------------------------------------
 
-        income_group = 
-          case_when(upperbin < 75000 ~ "less than\n$75,000",
-                                 upperbin < 150000 ~ "$75,000 -\n$150,000",
-                                 upperbin < 200000 ~ "$150,000 -\n$200,000",
-                                 upperbin == 200000 ~ "More than\n$200,000",
-                                 TRUE ~ "total")
+## Household income stats pulled from census table B19001. Household income is
+## binned into four categories: less than $75k, $75-150K, $150-200k, more than
+## $200k
+
+## call API using the B19001 table
+hh_income_raw <- census_vars %>% 
+    filter(str_detect(census_vars$variable, "B19001")) %>% 
+    acs_local_area()
+
+## rebin income categories
+hh_income_newbins <- hh_income_raw %>%    
+    mutate(upperbin = label %>%
+                      str_remove_all("( \\+)|\\$|,") %>%
+                      str_extract("\\d{5,6}$") %>% 
+                      as.numeric(),
+
+           income_group = case_when(
+               upperbin <   75000 ~ "less than\n$75,000",
+               upperbin <  150000 ~ "$75,000 -\n$150,000",
+               upperbin <  200000 ~ "$150,000 -\n$200,000",
+               upperbin == 200000 ~ "More than\n$200,000",
+                             TRUE ~ "total")
                                 
-         ) %>% 
-  filter(income_group != "total") %>% 
-  group_by(property, contour, income_group) %>% 
-  summarise(estimate = sum(estimate)) %>% 
-  mutate(percent = estimate/sum(estimate))
-  ungroup() %T>%
-  write_csv("local_data/hh_income.csv")
+     )
 
-# education summary -------------------------------------------------------
+## collapse into new income groups and calcualte percentage     
+hh_income <- hh_income_newbins %>% 
+    filter(income_group != "total") %>% 
+    group_by(property, contour, income_group) %>% 
+    summarise(estimate = sum(estimate)) %>% 
+    mutate(percent = estimate/sum(estimate))
+    ungroup()
+    
+# education summary ------------------------------------------------------------
 education <- 
   acs_local_area("educational attainment") %>% 
   mutate(education_group = 

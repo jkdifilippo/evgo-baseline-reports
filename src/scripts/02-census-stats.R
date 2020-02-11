@@ -1,4 +1,5 @@
 ################################## HEADER ######################################
+
 # purpose: define and develop baseline service areas
 # project: EVgo Evaluation Project
 #    year: 2019
@@ -129,7 +130,7 @@ hh_income <- hh_income_rebin %>%
 # education summary ------------------------------------------------------------
 
 ## Education stats pulled from census table B15003. Educational attainment is
-## rebined into collapsed categories
+## rebinned into collapsed categories
 
 ## call api with B15003 table    
 education_raw <- census_vars %>%  
@@ -137,7 +138,7 @@ education_raw <- census_vars %>%
       acs_local_area()
 
 ## rebin variables using regex        
-education_rebin
+education_rebin <- education_raw %>% 
     mutate(education_group = case_when(
                str_detect(label, 
                           "grade|GED|Reg|Nur|No|Kin") ~ "high school\nor less",
@@ -147,9 +148,8 @@ education_rebin
                           "Bach") ~ "undergraduate\ndegree",
                str_detect(label, 
                           "Mas|Doc|Prof") ~ "postgrad or\nprofessional\ndegree",
-               TRUE ~ "total"
-             )
-  )
+               TRUE ~ "total")
+    ) 
 
 ## collapse into new education groups and calcualte percentage 
 education <- education_rebin %>%     
@@ -157,28 +157,44 @@ education <- education_rebin %>%
     group_by(property, contour, education_group) %>% 
     summarise(estimate = sum(estimate)) %>% 
     mutate(percent = estimate/sum(estimate)) %>%
-    ungroup() %T>%
-    write_csv("local_data/education.csv")
+    ungroup()
 
 # race/ethnicity -------------------------------------------------------------
-race_ethnicity <- 
-  acs_local_area("hispanic or latino origin by race") %>% 
-  mutate(re_group = 
+
+## education stats pulled from census table B03002 and then rebinned into
+## summary categories
+
+## call api with B03002 table
+race_ethnicity_raw <- census_vars %>%  
+  filter(str_detect(census_vars$variable, "B03002")) %>% 
+  acs_local_area()
+
+## rebin using (ugly) regex  
+race_ethnicity_rebin <- race_ethnicity_raw %>%   
+   mutate(re_group = 
            case_when(
-             str_detect(var_name, "excluding|including") == TRUE ~ "drop",
-             str_detect(var_name, "^Hispanic or Latino(?=.)") == TRUE ~ "Hispanic/\nLatino",
-             str_detect(var_name, "(?<=N.{22})Asian|(?<=N.{22})Native") == TRUE ~ "Asian/\nPacific\nIslander",
-             str_detect(var_name, "(?<=N.{22})Black") == TRUE ~ "Black",
-             str_detect(var_name, "(?<=N.{22})White") == TRUE ~ "White",
-             str_detect(var_name, "(?<=N.{22})Some|(?<=N.{22})Two|(?<=N.{22})Ame") == TRUE ~ "Multiracial/\nOther",
+             str_detect(label, 
+                        "excluding|including") ~ "drop",
+             str_detect(label, 
+                        "^Hispanic or Latino.") ~ "Hispanic/\nLatino",
+             str_detect(label, 
+                        "(?<=N.{22})(Asi|Nat)") ~ "Asian/\nPacific\nIslander",
+             str_detect(label, 
+                        "(?<=N.{22})Black") ~ "Black",
+             str_detect(label, 
+                        "(?<=N.{22})White") ~ "White",
+             str_detect(label,
+                        "(?<=N.{22})(Some|Two|Amer)") ~ "Multiracial/\nOther",
              TRUE ~ "drop")
-  ) %>% 
+  ) 
+
+## collapse into new race/ethnicity groups and calcualte percentages
+race_ethnicity <- race_ethnicity_rebin %>% 
   filter(re_group != "drop") %>% 
   group_by(property, contour, re_group) %>% 
   summarize(estimate = sum(estimate)) %>%
   mutate(percent = estimate/sum(estimate)) %>% 
-  ungroup()  %T>%
-  write_csv("local_data/race_ethnicity.csv")
+  ungroup()
 
 
 #total population -----------------------------------------------------------

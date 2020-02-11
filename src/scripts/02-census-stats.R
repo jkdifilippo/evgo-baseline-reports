@@ -103,7 +103,7 @@ hh_income_raw <- census_vars %>%
     acs_local_area()
 
 ## rebin income categories
-hh_income_newbins <- hh_income_raw %>%    
+hh_income_rebinbin <- hh_income_raw %>%    
     mutate(upperbin = label %>%
                       str_remove_all("( \\+)|\\$|,") %>%
                       str_extract("\\d{5,6}$") %>% 
@@ -119,7 +119,7 @@ hh_income_newbins <- hh_income_raw %>%
      )
 
 ## collapse into new income groups and calcualte percentage     
-hh_income <- hh_income_newbins %>% 
+hh_income <- hh_income_rebin %>% 
     filter(income_group != "total") %>% 
     group_by(property, contour, income_group) %>% 
     summarise(estimate = sum(estimate)) %>% 
@@ -127,22 +127,38 @@ hh_income <- hh_income_newbins %>%
     ungroup()
     
 # education summary ------------------------------------------------------------
-education <- 
-  acs_local_area("educational attainment") %>% 
-  mutate(education_group = 
-           case_when(
-             str_detect(var_name, "grade|GED|Reg|Nur|No|Kin") == TRUE ~ "high school\nor less",
-             str_detect(var_name, "Some|Asso") == TRUE ~ "associates or\nsome college",
-             str_detect(var_name, "Bach") == TRUE ~ "undergraduate\ndegree",
-             str_detect(var_name, "Mas|Doc|Prof") == TRUE ~ "postgrad or\nprofessional\ndegree",
-             TRUE ~ "total")
-  ) %>% 
-  filter(education_group != "total") %>% 
-  group_by(property, contour, education_group) %>% 
-  summarise(estimate = sum(estimate)) %>% 
-  mutate(percent = estimate/sum(estimate)) %>%
-  ungroup() %T>%
-  write_csv("local_data/education.csv")
+
+## Education stats pulled from census table B15003. Educational attainment is
+## rebined into collapsed categories
+
+## call api with B15003 table    
+education_raw <- census_vars %>%  
+      filter(str_detect(census_vars$variable, "B15003")) %>% 
+      acs_local_area()
+
+## rebin variables using regex        
+education_rebin
+    mutate(education_group = case_when(
+               str_detect(label, 
+                          "grade|GED|Reg|Nur|No|Kin") ~ "high school\nor less",
+               str_detect(label,
+                          "Some|Asso") ~ "associates or\nsome college",
+               str_detect(label,
+                          "Bach") ~ "undergraduate\ndegree",
+               str_detect(label, 
+                          "Mas|Doc|Prof") ~ "postgrad or\nprofessional\ndegree",
+               TRUE ~ "total"
+             )
+  )
+
+## collapse into new education groups and calcualte percentage 
+education <- education_rebin %>%     
+    filter(education_group != "total") %>% 
+    group_by(property, contour, education_group) %>% 
+    summarise(estimate = sum(estimate)) %>% 
+    mutate(percent = estimate/sum(estimate)) %>%
+    ungroup() %T>%
+    write_csv("local_data/education.csv")
 
 # race/ethnicity -------------------------------------------------------------
 race_ethnicity <- 

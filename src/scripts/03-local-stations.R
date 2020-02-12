@@ -25,15 +25,16 @@ options(stringsAsFactors = FALSE)
 
 load("service_areas.RData")
 
-# get afdc station data from doe API -------------------------------------------
+# get afdc station data from data.gov API -------------------------------------------
 
+## api access is free but requires api key which can be obtained here:
+## https://api.data.gov/signup/
 afdc <- 
   GET(url = "https://developer.nrel.gov/api/alt-fuel-stations/v1.json",
       query = list(fuel_type = "ELEC",
                    state = "CA",
                    format = "JSON",
                    api_key = Sys.getenv("afdc_apikey"))
-              # api key signup: https://api.data.gov/signup/
       ) %>%
   content("text") %>% 
   fromJSON() %>%
@@ -56,10 +57,16 @@ pub_afd <- afdc %>%
          ev_network) %>% 
     filter(access_code == "public") %>% 
   
-  ## remove HCPC in afdc
-  filter(!str_detect(station_name, "Valley Vill|Chevron Will|Southside P"))
+    ## remove HCPC in afdc
+    filter(!str_detect(station_name, "Valley Vill|Chevron Will|Southside P"))
 
 # DCFC charging stations -------------------------------------------------------
+
+## Determines how many DCFC statsions are within 1 mile of the
+## boundary of each service area by drawing a 1 mile buffer around charging
+## station locations and testing whether those buffers intersect with the
+## service area polygons.
+
 
 ## Filter for DCFC, categorize dcfc into tesla/evgo/other and create simple
 ## features object from coordinates
@@ -94,6 +101,10 @@ dcfc_summary <- dcfc_service_area %>%
   ungroup()
 
 # L2 charging stations ---------------------------------------------------------
+
+## Determines how many L2 statsions are within 1/2 mile of the boundary of each
+## service area by drawing a 1/2 mile buffer around charging station locations
+## and testing whether those buffers intersect with the service area polygons.
 
 ## filter for level 2 chargers and create simple features object from their
 ## coordignates

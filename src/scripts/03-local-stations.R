@@ -1,13 +1,31 @@
-library(tidyverse)
-library(sf)
-library(httr)
-library(jsonlite)
-library(mapview)
+################################## HEADER ######################################
 
-# local service areas --------------------------------
+# purpose: define and develop baseline service areas
+# project: EVgo Evaluation Project
+#    year: 2019
+#
+#     org: UCLA Luskin Center for Innovation
+# website: innovation.luskin.ucla.edu
+#
+#  author: James Di Filippo
+#   email: jdifilippo@luskin.ucla.edu
+
+########################## DEPENDENCIES/OPTIONS/KEYs ###########################
+
+## load dependencies
+source("src/dependencies.R")
+
+## census api key
+census_api_key(Sys.getenv("census_apikey"))
+
+## set options
+options(stringsAsFactors = FALSE)
+
+################################## data ########################################
+
 load("service_areas.RData")
 
-# get afdc station data -------------------
+# get afdc station data from doe API -------------------------------------------
 
 afdc <- 
   GET(url = "https://developer.nrel.gov/api/alt-fuel-stations/v1.json",
@@ -22,8 +40,11 @@ afdc <-
   pluck("fuel_stations") %>% 
   as_tibble() 
 
-pub_afdc_sub <- afdc %>% 
-  select(id,
+################################ SCRIPT ########################################
+
+## remove unuseful variables and filter for public stations
+pub_afd <- afdc %>% 
+    select(id,
          station_name,
          access_code, 
          latitude, 
@@ -33,27 +54,49 @@ pub_afdc_sub <- afdc %>%
          ev_level1_evse_num, 
          ev_level2_evse_num, 
          ev_network) %>% 
-  filter(access_code == "public") %>% 
+    filter(access_code == "public") %>% 
   
-  #remove HCPC in afdc
-  filter(str_detect(station_name, "Valley Village|Chevron Willow|Southside Park") != TRUE)
+  ## remove HCPC in afdc
+  filter(!str_detect(station_name, "Valley Vill|Chevron Will|Southside P"))
 
-dcfc_sf <- 
-  pub_afdc_sub %>% 
-  filter(!is.na(ev_dc_fast_num)) %>%
-  mutate(charge_network = case_when(
-                      str_detect(ev_network, "Tesla") == TRUE ~ "Tesla",
-                      ev_network == "eVgo Network" ~ "EVgo",
-                      TRUE ~ "Other")
-        )%>% 
+# DCFC charging stations -------------------------------------------------------
 
-  st_as_sf(coords = c("longitude", "latitude"),
-           crs = 4326) %>% 
+## Filter for DCFC, categorize dcfc into tesla/evgo/other and create simple
+## features object from coordinates
+dcfc_sf <- pub_afdc_sub %>% 
+    filter(!is.na(ev_dc_fast_num)) %>%
+    mutate(
+      charge_network = case_when(str_detect(ev_network, "Tesla") ~ "Tesla",
+                                    ev_network == "eVgo Network" ~ "EVgo",
+                                                            TRUE ~ "Other")
+    ) %>% 
+  st_as_sf(coords = c("longitude", "latitude"), crs = 4326) %>% 
   st_transform(32610)
 
-mapview(dcfc_sf)
+## Create one-mile buffer around dcfc stations
+dcfc_buffer <- dcfc_sf %>% 
+  st_buffer(1609.34) ## 1 mile ~ 1609.34 meters
 
+# join DCFC buffers to service area shapes to identify overlap (charger in
+# service area)
+dcfc_service_area <- 
+  st_join(x = dcfc_buffer,
+          y = local_service_area,
+          join = st_intersects) %>% 
+  filter(is.na(property) == FALSE) %>%
+  st_drop_geometry() %>% 
+  distinct(id,property,contour, .keep_all = TRUE)
 
+## create summary stats for each service area time interval and charge network
+dcfc_summary <- dcfc_service_area %>% 
+  group_by(property, contour, charge_network) %>% 
+  summarise(dcfc = sum(ev_dc_fast_num)) %>% 
+  ungroup()
+
+# L2 charging stations ---------------------------------------------------------
+
+## filter for level 2 chargers and create simple features object from their
+## coordignates
 l2_sf <- 
   pub_afdc_sub %>% 
   filter(is.na(ev_level2_evse_num) == FALSE) %>% 
@@ -61,45 +104,34 @@ l2_sf <-
            crs = 4326) %>% 
   st_transform(32610)
 
-dcfc_buffer <- 
-  dcfc_sf %>% 
-  st_buffer(1609.34) ## 1 mile
 
-l2_buffer <- 
-  l2_sf %>% 
-  st_buffer(1609.34 * 0.5) ## 1/2 mile
+## create half-mile buffer around l2 stations
+l2_buffer <- l2_sf %>% 
+  st_buffer(1609.34 * 0.5) ## 1/2 mile `` 1/2 * 1609.34 meters
 
+# join l2 buffers to service area shapes to identify overlap (charger in service
+# area)
 l2_service_area <- 
   st_join(x = l2_buffer,
           y = local_service_area,
           join = st_intersects) %>% 
-  filter(is.na(property) == FALSE) %>%
-  as_tibble() %>% 
-  distinct(id,property,contour, .keep_all = TRUE)
+  filter(!is.na(property)) %>%
+  st_drop_geometry() %>% 
+  distinct(id, property, contour, .keep_all = TRUE)
 
+## sum the number of l2 chargers in each service area
 l2_summary <- 
   l2_service_area %>% 
   group_by(property, contour) %>% 
   summarise(l2_chargers = sum(ev_level2_evse_num)) %>% 
   ungroup()
 
-dcfc_service_area <- 
-  st_join(x = dcfc_buffer,
-          y = local_service_area,
-          join = st_intersects) %>% 
-  filter(is.na(property) == FALSE) %>%
-  as_tibble() %>% 
-  distinct(id,property,contour, .keep_all = TRUE)
+################################# OUTPUT #######################################
 
-dcfc_summary <- 
-  dcfc_service_area %>% 
-  group_by(property, contour, charge_network) %>% 
-  summarise(dcfc = sum(ev_dc_fast_num)) %>% 
-  ungroup()
-
-write_csv(l2_summary, "local_data/l2_summary.csv")
-write_csv(dcfc_summary, "local_data/dcfc_summary.csv")
-
-
-rm(list=ls()[! ls() %in% c("l2_buffer","dcfc_buffer", "l2_summary", "dcfc_summary", "dcfc_sf", "l2_sf")])
+## save image file with relevant objects
+rm(list=ls()[! ls() %in% c("l2_summary", "dcfc_summary", "dcfc_sf", "l2_sf")])
 save.image(file = "stations.RData")
+
+################################# CLEANUP ######################################
+
+rm(list=ls())

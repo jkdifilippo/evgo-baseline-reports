@@ -1,4 +1,5 @@
 ################################## HEADER ######################################
+
 # purpose: define and develop baseline service areas
 # project: EVgo Evaluation Project
 #    year: 2019
@@ -178,18 +179,16 @@ culver_city_station <-
                  mean()
       )
 
-
+## add culver city station back to stations list
 station_list_processed <-
     bind_rows(station_list_geocode,
               culver_city_station)
 
-# convert geocoded lat lons to simple features
-  # station_sf <- 
-  #   station_list_geocode %>% 
-  #   st_as_sf(coords = c("lon", "lat"),
-  #            crs = 4326) %>%
-  #   st_transform(32610)
-  # 
+## convert geocoded lat/lon to simple features
+  station_sf <- station_list_geocode %>%
+    st_as_sf(coords = c("lon", "lat"), crs = 4326) %>%
+    st_transform(32610)
+
 
 # create local service area isochrone set --------------------------------------
 
@@ -274,7 +273,9 @@ local_service_area <-
 ## clear unneccessary objects from memory
 rm(list=ls()[! ls() %in% c("local_service_area",
                            "station_list_geocode",
-                           "final_station_list")])
+                           "final_station_list",
+                           "station_sf"
+                           )])
 
 ## save image file for use in later analyses
 save.image("data/processed/image-files/service-areas.RData")
